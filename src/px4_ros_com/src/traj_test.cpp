@@ -36,6 +36,7 @@ public:
 		marker_traj_pub = this->create_publisher<visualization_msgs::msg::Marker>("trajectory_marker", 10);
 		marker_wp_pub = this->create_publisher<visualization_msgs::msg::Marker>("waypoint_marker", 10);
 		marker_drone_pub = this->create_publisher<visualization_msgs::msg::Marker>("drone_marker", 10);
+		marker_heading_pub = this->create_publisher<visualization_msgs::msg::Marker>("heading_marker", 10);
 
 		rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
 		auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
@@ -80,11 +81,12 @@ public:
             if (armed){
                 double elapsed_time = (this->now() - start_time).seconds();
 
+				// std::cout << "Publishing trajectory setpoint" << std::endl;
+
                 // offboard_control_mode needs to be paired with trajectory_setpoint
                 publish_offboard_control_mode();
                 publish_trajectory_setpoint(elapsed_time);
             }
-            
 
             // stop the counter after reaching 11
 			if (offboard_setpoint_counter_ < 11) {
@@ -128,6 +130,7 @@ private:
 	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_traj_pub;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_wp_pub;
 	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_drone_pub;
+	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub;
 
 	rclcpp::Subscription<VehicleLocalPosition>::SharedPtr vehicle_local_position_;
     rclcpp::Subscription<VehicleStatus>::SharedPtr vehicle_status_;
@@ -292,11 +295,14 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 
 	std::cout << "Heading: " << msg.yaw << std::endl;
 
-    // std::cout << "Pos: " << pos << std::endl;
+    std::cout << "Pos: " << pos << std::endl;
     
 	msg.position = {-pos.x(), pos.y(), -pos.z()};
 	msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
 	trajectory_setpoint_publisher_->publish(msg);
+
+	visualization_msgs::msg::Marker heading_marker = rviz_utils::createArrowMarker(Eigen::Vector3f{pos.x(), pos.y(), pos.z()}, msg.yaw, "/map");
+	marker_heading_pub->publish(heading_marker);
 }
 
 /**

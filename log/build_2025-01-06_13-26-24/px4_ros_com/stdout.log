@@ -1,0 +1,13 @@
+[35m[1mConsolidate compiler generated dependencies of target test_trajectory[0m
+[35m[1mConsolidate compiler generated dependencies of target traj_test[0m
+[ 16%] Built target frame_transforms
+[ 16%] Built target ament_cmake_python_copy_px4_ros_com
+[ 25%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o[0m
+running egg_info
+writing px4_ros_com.egg-info/PKG-INFO
+writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+writing top-level names to px4_ros_com.egg-info/top_level.txt
+reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[ 33%] Built target ament_cmake_python_build_px4_ros_com_egg

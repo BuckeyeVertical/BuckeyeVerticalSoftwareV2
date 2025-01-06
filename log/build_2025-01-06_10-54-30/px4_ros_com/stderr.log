@@ -1,0 +1,14 @@
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Kframe_transforms.h: No such file or directory
+    2 | #include [01;31m[K"frame_transforms.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:104: CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Kframe_transforms.h: No such file or directory
+    2 | #include [01;31m[K"frame_transforms.h"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:104: CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/test_trajectory.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

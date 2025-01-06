@@ -1,0 +1,38 @@
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:[m[K In function ‘[01m[Kvisualization_msgs::msg::Marker rviz_utils::createArrowMarker(const Vector3f&, float, const string&)[m[K’:
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:54:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Kx[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_x_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   54 |     start_point.x = position.[01;31m[Kx[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:55:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Ky[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_y_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   55 |     start_point.y = position.[01;31m[Ky[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:56:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Kz[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_z_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   56 |     start_point.z = position.[01;31m[Kz[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:59:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_x[m[K’ was not declared in this scope
+   59 |     double end_x = [01;31m[Kstart_x[m[K + arrow_length * cos(heading);
+      |                    [01;31m[K^~~~~~~[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:60:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_y[m[K’ was not declared in this scope
+   60 |     double end_y = [01;31m[Kstart_y[m[K + arrow_length * sin(heading);
+      |                    [01;31m[K^~~~~~~[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:[m[K In function ‘[01m[Kvisualization_msgs::msg::Marker rviz_utils::createArrowMarker(const Vector3f&, float, const string&)[m[K’:
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:54:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Kx[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_x_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   54 |     start_point.x = position.[01;31m[Kx[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:55:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Ky[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_y_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   55 |     start_point.y = position.[01;31m[Ky[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:56:30:[m[K [01;31m[Kerror: [m[Kcannot resolve overloaded function ‘[01m[Kz[m[K’ based on conversion to type ‘[01m[Kgeometry_msgs::msg::Point_<std::allocator<void> >::_z_type[m[K’ {aka ‘[01m[Kdouble[m[K’}
+   56 |     start_point.z = position.[01;31m[Kz[m[K;
+      |                              [01;31m[K^[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:59:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_x[m[K’ was not declared in this scope
+   59 |     double end_x = [01;31m[Kstart_x[m[K + arrow_length * cos(heading);
+      |                    [01;31m[K^~~~~~~[m[K
+[01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:60:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstart_y[m[K’ was not declared in this scope
+   60 |     double end_y = [01;31m[Kstart_y[m[K + arrow_length * sin(heading);
+      |                    [01;31m[K^~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:104: CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:104: CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/test_trajectory.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

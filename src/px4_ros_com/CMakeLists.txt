@@ -43,12 +43,12 @@ target_include_directories(frame_transforms PUBLIC
 )
 
 # traj_test
-add_executable(traj_test src/traj_test.cpp src/trajectory.cpp src/rviz_utils.cpp)
+add_executable(traj_test src/traj_test.cpp src/trajectory.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
 ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
 
 # Build your test executable
-add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/rviz_utils.cpp)
+add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
 ament_target_dependencies(test_trajectory rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS test_trajectory DESTINATION lib/${PROJECT_NAME})
 
@@ -102,12 +102,12 @@ endif()
 # ###########
 
 # # Install Python modules
-# ament_python_install_package(${PROJECT_NAME})
+ament_python_install_package(${PROJECT_NAME})
 
-# # Install Python executables
-# install(PROGRAMS
+# Install Python executables
+install(PROGRAMS
 #   src/examples/offboard_py/offboard_control.py
-#   DESTINATION lib/${PROJECT_NAME}
-# )
+  DESTINATION lib/${PROJECT_NAME}
+)
 
-# ament_package()
+ament_package()

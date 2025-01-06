@@ -8,6 +8,7 @@ source install/local_setup.bash
 
 px4 client:
 PX4_GZ_SIM_RENDER_ENGINE=ogre make px4_sitl gz_x500
+HEADLESS=1 make px4_sitl gz_x500
 
 starting agent:
 MicroXRCEAgent udp4 -p 8888

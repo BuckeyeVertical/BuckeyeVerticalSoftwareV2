@@ -1,0 +1,30 @@
+[0.277s] Invoking command in '/home/eashan/BuckeyeVerticalSoftware_v2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/cuda-12.6/lib64:/usr/local/cuda-12.6/lib64 PYTHONPATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/eashan/BuckeyeVerticalSoftware_v2/build/px4_ros_com -- -j4 -l4
+[0.325s] [35m[1mConsolidate compiler generated dependencies of target frame_transforms[0m
+[0.336s] [35m[1mConsolidate compiler generated dependencies of target test_trajectory[0m
+[0.338s] [  0%] Built target ament_cmake_python_copy_px4_ros_com
+[0.353s] [35m[1mConsolidate compiler generated dependencies of target traj_test[0m
+[0.358s] [ 20%] Built target frame_transforms
+[0.392s] [ 30%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o[0m
+[0.400s] [ 40%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o[0m
+[0.518s] running egg_info
+[0.529s] writing px4_ros_com.egg-info/PKG-INFO
+[0.530s] writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+[0.530s] writing top-level names to px4_ros_com.egg-info/top_level.txt
+[0.579s] reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.580s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.612s] [ 40%] Built target ament_cmake_python_build_px4_ros_com_egg
+[0.746s] [01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Kframe_transforms.h: No such file or directory
+[0.746s]     2 | #include [01;31m[K"frame_transforms.h"[m[K
+[0.746s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[0.747s] compilation terminated.
+[0.750s] gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:104: CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o] Error 1
+[0.751s] gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+[0.751s] gmake[1]: *** Waiting for unfinished jobs....
+[0.765s] [01m[K/home/eashan/BuckeyeVerticalSoftware_v2/src/px4_ros_com/src/rviz_utils.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Kframe_transforms.h: No such file or directory
+[0.765s]     2 | #include [01;31m[K"frame_transforms.h"[m[K
+[0.765s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[0.766s] compilation terminated.
+[0.768s] gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:104: CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o] Error 1
+[0.768s] gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/test_trajectory.dir/all] Error 2
+[0.768s] gmake: *** [Makefile:146: all] Error 2
+[0.770s] Invoked command in '/home/eashan/BuckeyeVerticalSoftware_v2/build/px4_ros_com' returned '2': AMENT_PREFIX_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) LD_LIBRARY_PATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/usr/local/cuda-12.6/lib64:/usr/local/cuda-12.6/lib64 PYTHONPATH=/home/eashan/BuckeyeVerticalSoftware_v2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/eashan/BuckeyeVerticalSoftware_v2/build/px4_ros_com -- -j4 -l4

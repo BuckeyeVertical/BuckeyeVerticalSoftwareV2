@@ -9,7 +9,7 @@ def generate_launch_description():
     rviz_config_file = os.path.join(
         get_package_share_directory('px4_ros_com'),
         'rviz',
-        'traj_test.rviz'
+        'test_trajectory.rviz'
     )
 
     print(f"Loading config file from: {rviz_config_file}")
@@ -39,5 +39,5 @@ def generate_launch_description():
     return LaunchDescription([
         micro_ros_agent,
         traj_test_node,
-        # rviz_node
+        rviz_node
     ])

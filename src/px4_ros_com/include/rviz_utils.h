@@ -7,4 +7,5 @@ namespace rviz_utils{
     visualization_msgs::msg::Marker createLineMarker(const std::vector<Eigen::Vector3f>& points, const std::string& frame_id);
     visualization_msgs::msg::Marker createPointMarker(const std::vector<Eigen::Vector3f>& points, const std::string& frame_id);
     visualization_msgs::msg::Marker createSquareMarker(const Eigen::Vector3f& point, const std::string& frame_id);
+    visualization_msgs::msg::Marker createArrowMarker(const Eigen::Vector3f& position, float heading, const std::string& frame_id);
 }
