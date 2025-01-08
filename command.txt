@@ -7,6 +7,7 @@ Source:
 source install/local_setup.bash
 
 px4 client:
+make px4_sitl gz_x500
 PX4_GZ_SIM_RENDER_ENGINE=ogre make px4_sitl gz_x500
 HEADLESS=1 make px4_sitl gz_x500
 
