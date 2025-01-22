@@ -1,45 +1,37 @@
 #include <vector>
 #include <eigen3/Eigen/Dense>
-#include <eigen3/unsupported/Eigen/Splines>
-#include <cassert>
-#include <iostream>
 #include <visualization_msgs/msg/marker.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include "rviz_utils.h"
 
-typedef Eigen::Spline<float, 3> Spline3f;
 
-class Trajectory {
+class MotionProfiling {
 private:
     const std::vector<Eigen::Vector3f> *waypoints;
 
     float vmax, timeToMaxV = 0;
 
     float getTimeScaledParameter(float t) const;
-    float calculateSplineLength() const;
+    float calculateLineLength() const;
     float generateTrajectory();
-    Spline3f spline;
-    bool splineInitialized;
-    float splineLength;
+    float lineLength;
     float totalTime;
 
 public:
-    Trajectory(double vmax, double timeToMaxV, const std::vector<Eigen::Vector3f> *waypoints){
+    MotionProfiling(double vmax, double timeToMaxV, const std::vector<Eigen::Vector3f> *waypoints){
         this->waypoints = waypoints;
         this->vmax = vmax;
         this->timeToMaxV = timeToMaxV;
-        this->splineInitialized = false;
-        this->splineLength = 0;
+        this->lineLength = 0;
         this->totalTime = 0.0;
 
-        splineLength = generateTrajectory();
+        lineLength = generateTrajectory();
     }
 
     Eigen::Vector3f getPosition(float t, float &heading);
     Eigen::Vector3f getPosition(float t);
-    Eigen::Vector3f getPosition(float t, float &heading, visualization_msgs::msg::Marker &marker);
 
-    Spline3f getSpline();
+    const std::vector<Eigen::Vector3f> getWaypoints();
     float getVMax();
     float getTimeToMaxV();
     float getTotalTime();

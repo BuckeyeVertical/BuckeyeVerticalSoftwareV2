@@ -1,4 +1,5 @@
 #include "trajectory.h"
+#include "rviz_utils.h"
 
 /**
  * @brief Calculate normalized position along a trajectory with acceleration and deceleration phases
@@ -132,10 +133,32 @@ Eigen::Vector3f Trajectory::getPosition(float t, float &heading) {
     // Get time-scaled parameter
     float u = getTimeScaledParameter(t);
 
-    heading = -atan2(spline.derivatives(u, 1)(1), spline.derivatives(u, 1)(0));
+    float dx = spline.derivatives(u, 1)(0);
+    float dy = spline.derivatives(u, 1)(1);
+
+    heading = -atan2(dy, dx);
     
     // Get position from spline
     return spline(u);
+}
+
+Eigen::Vector3f Trajectory::getPosition(float t, float &heading, visualization_msgs::msg::Marker &marker) {
+    assert(splineInitialized && "Spline not initialized!");
+
+    // Get time-scaled parameter
+    float u = getTimeScaledParameter(t);
+
+    float dx = spline.derivatives(u, 1)(0);
+    float dy = spline.derivatives(u, 1)(1);
+
+    Eigen::Vector3f pos = spline(u);
+
+    marker = rviz_utils::createArrowMarker(pos, dx, dy, "/map");
+
+    heading = -atan2(dy, dx);
+    
+    // Get position from spline
+    return pos;
 }
 
 Eigen::Vector3f Trajectory::getPosition(float t) {

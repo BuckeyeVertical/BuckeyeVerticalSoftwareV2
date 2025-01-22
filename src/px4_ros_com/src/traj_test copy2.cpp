@@ -7,7 +7,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <stdint.h>
 #include <eigen3/Eigen/Dense>
-#include "trajectory.h"
+#include "motionProfiling.h"
 
 #include <chrono>
 #include <iostream>
@@ -52,11 +52,9 @@ public:
 
 		waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 		waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
-		waypoints.push_back(Eigen::Vector3f(10.0, 0.0, 10.0));
 		// waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0)); FIX THIS EDGE CASE
 
-		currTraj = std::make_shared<Trajectory>(3.0, 2.5, &waypoints);
+		currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &waypoints);
 
         offboard_setpoint_counter_ = 0;
 
@@ -121,7 +119,7 @@ private:
 	const float tolerance = 0.5;
 	std::vector<Eigen::Vector3f> waypoints;
 	Eigen::Vector3f target_pos{0.0, 0.0, takeoff_altitude};
-	std::shared_ptr<Trajectory> currTraj;
+	std::shared_ptr<MotionProfiling> currTraj;
 
 	rclcpp::TimerBase::SharedPtr timer_;
 
@@ -217,10 +215,11 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 				target_pos = waypoints.back();
 				std::cout << "target position: " << target_pos << std::endl;
 				// std::cout << "Completed TAKEOFF... moving into FOLLOW_TRAJECTORY.";
-				drone_state = FOLLOW_TRAJECTORY;
+				drone_state = TURN;
 				break;
 			case TURN:
-
+				drone_state = FOLLOW_TRAJECTORY;
+				break;
 			case FOLLOW_TRAJECTORY:
 				std::cout << "Completed FOLLOW_TRAJECTORY... moving into LAND.";
 				target_pos = waypoints.back();
@@ -285,7 +284,10 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 	switch (drone_state){
 		case TAKEOFF:
 			pos = target_pos;
-			msg.yaw = -atan2(currTraj->getSpline().derivatives(0.0, 1)(1), currTraj->getSpline().derivatives(0.0, 1)(0));
+			//msg.yaw = -atan2(currTraj->getSpline().derivatives(0.0, 1)(1), currTraj->getSpline().derivatives(0.0, 1)(0));
+			break;
+		case TURN:
+			msg.yaw = -atan2(pos.y(), pos.x());
 			break;
 		case FOLLOW_TRAJECTORY:
 			pos = currTraj->getPosition(t, msg.yaw);
