@@ -286,6 +286,7 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 			pos = target_pos;		
 			break;
 		case TURN:
+			pos = currTraj->getPosition(t, msg.yaw);
 			msg.yaw = -atan2(pos.y(), pos.x());
 			break;
 		case FOLLOW_TRAJECTORY:
