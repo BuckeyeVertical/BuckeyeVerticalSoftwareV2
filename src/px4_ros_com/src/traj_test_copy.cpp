@@ -51,6 +51,7 @@ public:
 		prev_time = this->now();
 
 		waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
+		waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 		waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
 		// waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0)); FIX THIS EDGE CASE
 
