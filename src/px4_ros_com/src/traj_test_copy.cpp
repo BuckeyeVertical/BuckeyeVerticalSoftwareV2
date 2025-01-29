@@ -50,8 +50,8 @@ public:
 
 		prev_time = this->now();
 
-		waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
-		waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
+		waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
+		waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
 		// waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0)); FIX THIS EDGE CASE
 
 		currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &waypoints);
@@ -283,8 +283,7 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 
 	switch (drone_state){
 		case TAKEOFF:
-			pos = target_pos;
-			//msg.yaw = -atan2(currTraj->getSpline().derivatives(0.0, 1)(1), currTraj->getSpline().derivatives(0.0, 1)(0));
+			pos = target_pos;		
 			break;
 		case TURN:
 			msg.yaw = -atan2(pos.y(), pos.x());

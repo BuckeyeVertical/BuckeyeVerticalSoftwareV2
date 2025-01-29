@@ -24,7 +24,7 @@ def generate_launch_description():
 
     traj_test_node = Node(
         package='px4_ros_com',
-        executable='traj_test',
+        executable='traj_test_copy',
         output='screen',
         shell=True,
     )
