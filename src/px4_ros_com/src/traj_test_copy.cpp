@@ -120,7 +120,8 @@ private:
     bool armed = false;
 
 	const float tolerance = 0.5;
-	const float headingTolerance = .2;
+	const float headingTolerance = 0.2;
+
 	std::vector<Eigen::Vector3f> waypoints;
 	Eigen::Vector3f target_pos{0.0, 0.0, takeoff_altitude};
 	std::shared_ptr<MotionProfiling> currTraj;
@@ -191,7 +192,9 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	float dz = msg->z + target_pos.z();
 	float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
-	targetHeading = -atan2(target_pos.y(), target_pos.x());
+	// do current heading minus target heading
+	float deltaHeading = msg->yaw - targetHeading;
+
 
 	visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
 	marker_drone_pub->publish(drone_marker);
@@ -219,7 +222,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	//
 
 	// verify if the yaw is correct
-	if((distance < tolerance) && (targetHeading < headingTolerance)){
+	if((distance < tolerance) && (deltaHeading < headingTolerance)){
 		//std::cout << "Reached position setpoint with distance " << distance << std::endl;
         reset_time = true;
         switch (drone_state){
@@ -258,6 +261,9 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 				std::cout << "Completed LAND" << std::endl;
 				break;
 		}
+
+		// need to find heading of previous waypoint to target point
+		targetHeading = -atan2(target_pos.y(), target_pos.x());
 	}
 
 }
