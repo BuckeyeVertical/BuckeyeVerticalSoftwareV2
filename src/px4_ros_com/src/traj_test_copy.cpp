@@ -120,6 +120,7 @@ private:
     bool armed = false;
 
 	const float tolerance = 0.5;
+	const float headingTolerance = .2;
 	std::vector<Eigen::Vector3f> waypoints;
 	Eigen::Vector3f target_pos{0.0, 0.0, takeoff_altitude};
 	std::shared_ptr<MotionProfiling> currTraj;
@@ -190,6 +191,8 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	float dz = msg->z + target_pos.z();
 	float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
+	targetHeading = -atan2(target_pos.y(), target_pos.x());
+
 	visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
 	marker_drone_pub->publish(drone_marker);
 	
@@ -216,35 +219,36 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	//
 
 	// verify if the yaw is correct
-	if((distance < tolerance) && ){
+	if((distance < tolerance) && (targetHeading < headingTolerance)){
 		//std::cout << "Reached position setpoint with distance " << distance << std::endl;
         reset_time = true;
         switch (drone_state){
 			case TAKEOFF:
 				// use the 3rd vector in waypoints
 				target_pos = waypoints[waypointCounter];
-
-				// update the target heading
-
-				targetHeading = 
-
 				std::cout << "target position: " << target_pos << std::endl;
 				// std::cout << "Completed TAKEOFF... moving into FOLLOW_TRAJECTORY.";
+				waypointCounter++;
 				drone_state = TURN;
 				break;
 			case TURN:
-
 				// only changes to loiter state if no more waypoints
 				if (waypointCounter >= waypoints.size()) {
 					drone_state = LOITER;
 				}
 
+				// sets the new target pos
+				target_pos = waypoints[waypointCounter]; 
+
 				drone_state = FOLLOW_TRAJECTORY;
 				break;
 			case FOLLOW_TRAJECTORY:
 				std::cout << "Completed FOLLOW_TRAJECTORY... moving into LAND.";
+
 				// use the next vector in waypoints
-				target_pos = waypoints[];
+				target_pos = waypoints[waypointCounter];
+				waypointCounter++;
+
 				drone_state = TURN;
 				break;
 			case LOITER:
@@ -311,11 +315,13 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 			pos = target_pos;		
 			break;
 		case TURN:
-			// get access to next waypoint
+=			// get access to next waypoint
 			msg.yaw = -atan2(pos.y(), pos.x());
 			break;
 		case FOLLOW_TRAJECTORY:
-			pos = currTraj->getPosition(t, msg.yaw);
+			//pos = currTraj->getPosition(t, msg.yaw);
+			pos = target_pos;		
+
 			break;
 		case LOITER:
 		case LAND:
