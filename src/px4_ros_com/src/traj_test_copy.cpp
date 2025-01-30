@@ -111,6 +111,8 @@ private:
     float SIGMOID_STEEPNESS = 1.0;
 	State drone_state = TAKEOFF;
 
+	float targetHeading = 0;
+
 	float takeoff_altitude = 10.0;
 
     bool reset_time = true;
@@ -121,6 +123,8 @@ private:
 	std::vector<Eigen::Vector3f> waypoints;
 	Eigen::Vector3f target_pos{0.0, 0.0, takeoff_altitude};
 	std::shared_ptr<MotionProfiling> currTraj;
+
+	int waypointCounter = 2;
 
 	rclcpp::TimerBase::SharedPtr timer_;
 
@@ -188,7 +192,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 
 	visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
 	marker_drone_pub->publish(drone_marker);
-
+	
 	// if (drone_state == FOLLOW_TRAJECTORY){
 	// 	// TEMP
 	// 	// Calculate velocity by dividing the distance difference by the time difference
@@ -208,23 +212,40 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	// 	//TEMP
 	// }
 
-	if(distance < tolerance){
+	//keep track of the waypoint we are at
+	//
+
+	// verify if the yaw is correct
+	if((distance < tolerance) && ){
 		//std::cout << "Reached position setpoint with distance " << distance << std::endl;
         reset_time = true;
         switch (drone_state){
 			case TAKEOFF:
-				target_pos = waypoints.back();
+				// use the 3rd vector in waypoints
+				target_pos = waypoints[waypointCounter];
+
+				// update the target heading
+
+				targetHeading = 
+
 				std::cout << "target position: " << target_pos << std::endl;
 				// std::cout << "Completed TAKEOFF... moving into FOLLOW_TRAJECTORY.";
 				drone_state = TURN;
 				break;
 			case TURN:
+
+				// only changes to loiter state if no more waypoints
+				if (waypointCounter >= waypoints.size()) {
+					drone_state = LOITER;
+				}
+
 				drone_state = FOLLOW_TRAJECTORY;
 				break;
 			case FOLLOW_TRAJECTORY:
 				std::cout << "Completed FOLLOW_TRAJECTORY... moving into LAND.";
-				target_pos = waypoints.back();
-				drone_state = LOITER;
+				// use the next vector in waypoints
+				target_pos = waypoints[];
+				drone_state = TURN;
 				break;
 			case LOITER:
 				//std::cout << "Loitering" << std::endl;
@@ -234,6 +255,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 				break;
 		}
 	}
+
 }
 
 /**
@@ -282,12 +304,14 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 	TrajectorySetpoint msg{};
 	Eigen::Vector3f pos;
 
+
 	switch (drone_state){
 		case TAKEOFF:
+			// use px4 takeoff 
 			pos = target_pos;		
 			break;
 		case TURN:
-			pos = target_pos;		
+			// get access to next waypoint
 			msg.yaw = -atan2(pos.y(), pos.x());
 			break;
 		case FOLLOW_TRAJECTORY:
