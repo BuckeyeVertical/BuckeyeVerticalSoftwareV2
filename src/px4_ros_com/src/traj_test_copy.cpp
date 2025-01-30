@@ -125,7 +125,7 @@ private:
 	Eigen::Vector3f target_pos{0.0, 0.0, takeoff_altitude};
 	std::shared_ptr<MotionProfiling> currTraj;
 
-	int waypointCounter = 2;
+	long unsigned int waypointCounter = 2;
 
 	rclcpp::TimerBase::SharedPtr timer_;
 
@@ -315,13 +315,13 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 			pos = target_pos;		
 			break;
 		case TURN:
-=			// get access to next waypoint
+
+			pos = target_pos;		
+			// get access to next waypoint
 			msg.yaw = -atan2(pos.y(), pos.x());
 			break;
 		case FOLLOW_TRAJECTORY:
-			//pos = currTraj->getPosition(t, msg.yaw);
-			pos = target_pos;		
-
+			pos = currTraj->getPosition(t, msg.yaw);
 			break;
 		case LOITER:
 		case LAND:
