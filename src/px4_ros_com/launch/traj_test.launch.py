@@ -1,7 +1,7 @@
 import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, TimerAction
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
@@ -20,13 +20,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    traj_test_node = Node(
-        package='px4_ros_com',
-        executable='traj_test',
-        output='screen',
-        shell=True,
-    )
-
     # Node to start RViz
     rviz_node = Node(
         package='rviz2',
@@ -36,8 +29,21 @@ def generate_launch_description():
         output='screen'
     )
 
+    delay_timer = TimerAction(
+        period=4.0,
+        actions=[
+            Node(
+                package='px4_ros_com',
+                executable='traj_test',
+                output='screen',
+                shell=True,
+            ),
+        ]
+    )
+                
+
     return LaunchDescription([
         micro_ros_agent,
-        traj_test_node,
+        delay_timer,
         rviz_node
     ])
