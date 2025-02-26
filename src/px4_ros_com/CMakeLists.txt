@@ -47,6 +47,11 @@ add_executable(traj_test src/traj_test.cpp src/trajectory.cpp src/rviz_utils.cpp
 ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
 
+# traj_test_copy
+add_executable(traj_test_copy src/traj_test_copy.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
+ament_target_dependencies(traj_test_copy rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
+install(TARGETS traj_test_copy DESTINATION lib/${PROJECT_NAME})
+
 # Build your test executable
 add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
 ament_target_dependencies(test_trajectory rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)

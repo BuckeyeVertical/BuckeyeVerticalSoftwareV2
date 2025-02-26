@@ -1,0 +1,71 @@
+[0.090s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[0.146s] [  0%] Built target ament_cmake_python_copy_px4_ros_com
+[0.161s] [ 11%] Built target frame_transforms
+[0.167s] [ 17%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o[0m
+[0.167s] [ 58%] Built target test_trajectory
+[0.167s] [ 76%] Built target traj_test
+[0.327s] running egg_info
+[0.328s] writing px4_ros_com.egg-info/PKG-INFO
+[0.328s] writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+[0.328s] writing top-level names to px4_ros_com.egg-info/top_level.txt
+[0.330s] reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.331s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.349s] [ 76%] Built target ament_cmake_python_build_px4_ros_com_egg
+[10.003s] [ 82%] [32m[1mLinking CXX executable traj_test_copy[0m
+[10.915s] [100%] Built target traj_test_copy
+[10.922s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '0': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[10.926s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com
+[10.933s] -- Install configuration: ""
+[10.934s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/px4_ros_com/traj_test
+[10.935s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/px4_ros_com/traj_test_copy
+[10.940s] -- Set runtime path of "/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/px4_ros_com/traj_test_copy" to ""
+[10.941s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/px4_ros_com/test_trajectory
+[10.941s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/library_path.sh
+[10.941s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/library_path.dsv
+[10.941s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/include/px4_ros_com
+[10.941s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/include/px4_ros_com/frame_transforms.h
+[10.943s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/libframe_transforms.so
+[10.943s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//launch
+[10.943s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//launch/traj_test.launch.py
+[10.943s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//launch/sensor_combined_listener.launch.py
+[10.943s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//launch/test_trajectory.launch.py
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//launch/offboard_control_launch.yaml
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test/test_output.py
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test/test_input.py
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test/__init__.py
+[10.944s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test/test_trajectory.cpp
+[10.945s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com//test/pipeline_io_test.py
+[10.945s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/pythonpath.sh
+[10.945s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/pythonpath.dsv
+[10.945s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com-0.1.0-py3.10.egg-info
+[10.945s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com-0.1.0-py3.10.egg-info/SOURCES.txt
+[10.945s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com-0.1.0-py3.10.egg-info/PKG-INFO
+[10.946s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com-0.1.0-py3.10.egg-info/dependency_links.txt
+[10.946s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com-0.1.0-py3.10.egg-info/top_level.txt
+[10.946s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com
+[10.946s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com/__init__.py
+[10.946s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com/module_to_import.py
+[10.976s] Listing '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/local/lib/python3.10/dist-packages/px4_ros_com'...
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/ament_index/resource_index/package_run_dependencies/px4_ros_com
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/ament_index/resource_index/parent_prefix_path/px4_ros_com
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/ament_prefix_path.sh
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/ament_prefix_path.dsv
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/path.sh
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/environment/path.dsv
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/local_setup.bash
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/local_setup.sh
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/local_setup.zsh
+[10.982s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/local_setup.dsv
+[10.983s] -- Installing: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.dsv
+[10.983s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/ament_index/resource_index/packages/px4_ros_com
+[10.984s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/export_frame_transformsExport.cmake
+[10.984s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/export_frame_transformsExport-noconfig.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_dependencies-extras.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_targets-extras.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_include_directories-extras.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/ament_cmake_export_libraries-extras.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/px4_ros_comConfig.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/cmake/px4_ros_comConfig-version.cmake
+[10.985s] -- Up-to-date: /home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.xml
+[10.987s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '0': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com

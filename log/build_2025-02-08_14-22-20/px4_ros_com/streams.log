@@ -1,0 +1,23 @@
+[0.086s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[0.111s] [35m[1mConsolidate compiler generated dependencies of target traj_test_copy[0m
+[0.118s] [ 11%] Built target frame_transforms
+[0.121s] [ 11%] Built target ament_cmake_python_copy_px4_ros_com
+[0.124s] [ 41%] Built target traj_test
+[0.125s] [ 70%] Built target test_trajectory
+[0.129s] [ 76%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o[0m
+[0.296s] running egg_info
+[0.297s] writing px4_ros_com.egg-info/PKG-INFO
+[0.297s] writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+[0.297s] writing top-level names to px4_ros_com.egg-info/top_level.txt
+[0.298s] reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.299s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.319s] [ 76%] Built target ament_cmake_python_build_px4_ros_com_egg
+[2.465s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test_copy.cpp:[m[K In member function ‘[01m[Kvoid OffboardControl::vehicle_local_position_callback(px4_msgs::msg::VehicleLocalPosition_<std::allocator<void> >::SharedPtr)[m[K’:
+[2.465s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test_copy.cpp:210:55:[m[K [01;31m[Kerror: [m[K‘[01m[Kcurrent_waypoint[m[K’ was not declared in this scope; did you mean ‘[01m[Ksegment_waypoints[m[K’?
+[2.465s]   210 |                 segment_waypoints.push_back(waypoints[[01;31m[Kcurrent_waypoint[m[K]);  // Current position (takeoff point)
+[2.465s]       |                                                       [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[2.465s]       |                                                       [32m[Ksegment_waypoints[m[K
+[5.349s] gmake[2]: *** [CMakeFiles/traj_test_copy.dir/build.make:76: CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o] Error 1
+[5.349s] gmake[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/traj_test_copy.dir/all] Error 2
+[5.349s] gmake: *** [Makefile:146: all] Error 2
+[5.353s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '2': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16

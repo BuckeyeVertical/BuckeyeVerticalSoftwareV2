@@ -1,0 +1,8 @@
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test_copy.cpp:[m[K In member function ‘[01m[Kvoid OffboardControl::vehicle_local_position_callback(px4_msgs::msg::VehicleLocalPosition_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test_copy.cpp:210:55:[m[K [01;31m[Kerror: [m[K‘[01m[Kcurrent_waypoint[m[K’ was not declared in this scope; did you mean ‘[01m[Ksegment_waypoints[m[K’?
+  210 |                 segment_waypoints.push_back(waypoints[[01;31m[Kcurrent_waypoint[m[K]);  // Current position (takeoff point)
+      |                                                       [01;31m[K^~~~~~~~~~~~~~~~[m[K
+      |                                                       [32m[Ksegment_waypoints[m[K
+gmake[2]: *** [CMakeFiles/traj_test_copy.dir/build.make:76: CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/traj_test_copy.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,44 @@
+[0.094s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[0.122s] [35m[1mConsolidate compiler generated dependencies of target frame_transforms[0m
+[0.124s] [35m[1mConsolidate compiler generated dependencies of target traj_test[0m
+[0.124s] [35m[1mConsolidate compiler generated dependencies of target test_trajectory[0m
+[0.134s] [  0%] Built target ament_cmake_python_copy_px4_ros_com
+[0.135s] [ 16%] Built target frame_transforms
+[0.146s] [ 33%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/traj_test.cpp.o[0m
+[0.146s] [ 33%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/test/test_trajectory.cpp.o[0m
+[0.147s] [ 41%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/trajectory.cpp.o[0m
+[0.147s] [ 50%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/trajectory.cpp.o[0m
+[0.377s] running egg_info
+[0.378s] writing px4_ros_com.egg-info/PKG-INFO
+[0.378s] writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+[0.378s] writing top-level names to px4_ros_com.egg-info/top_level.txt
+[0.380s] reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.381s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[0.402s] [ 50%] Built target ament_cmake_python_build_px4_ros_com_egg
+[2.797s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:1[m[K:
+[2.797s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[2.797s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[2.797s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.861s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/test/test_trajectory.cpp:1[m[K:
+[2.861s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[2.861s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[2.861s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.886s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:1[m[K:
+[2.886s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[2.886s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[2.886s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[2.970s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:10[m[K:
+[2.970s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[2.970s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[2.970s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[4.238s] gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:76: CMakeFiles/test_trajectory.dir/test/test_trajectory.cpp.o] Error 1
+[4.238s] gmake[2]: *** Waiting for unfinished jobs....
+[6.499s] gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:90: CMakeFiles/test_trajectory.dir/src/trajectory.cpp.o] Error 1
+[6.499s] gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/test_trajectory.dir/all] Error 2
+[6.499s] gmake[1]: *** Waiting for unfinished jobs....
+[6.640s] gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:90: CMakeFiles/traj_test.dir/src/trajectory.cpp.o] Error 1
+[6.640s] gmake[2]: *** Waiting for unfinished jobs....
+[7.522s] gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:76: CMakeFiles/traj_test.dir/src/traj_test.cpp.o] Error 1
+[7.522s] gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+[7.523s] gmake: *** [Makefile:146: all] Error 2
+[7.525s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '2': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16

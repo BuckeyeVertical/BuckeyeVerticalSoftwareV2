@@ -22,7 +22,7 @@ def generate_launch_description():
 
     traj_test_node = Node(
         package='px4_ros_com',
-        executable='traj_test',
+        executable='traj_test_copy',
         output='screen',
         shell=True,
     )
@@ -37,7 +37,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        micro_ros_agent,
+        # micro_ros_agent,
         traj_test_node,
         rviz_node
     ])

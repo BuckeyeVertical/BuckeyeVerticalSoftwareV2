@@ -1,0 +1,29 @@
+[35m[1mConsolidate compiler generated dependencies of target traj_test_copy[0m
+[ 11%] Built target frame_transforms
+[ 11%] Built target ament_cmake_python_copy_px4_ros_com
+[ 41%] Built target test_trajectory
+[ 70%] Built target traj_test
+[ 76%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/motionProfiling.cpp.o[0m
+running egg_info
+writing px4_ros_com.egg-info/PKG-INFO
+writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+writing top-level names to px4_ros_com.egg-info/top_level.txt
+reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[ 76%] Built target ament_cmake_python_build_px4_ros_com_egg
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K In member function ‘[01m[Kfloat MotionProfiling::getTimeScaledParameter(float) const[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:26:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   26 |         [01;31m[KvScale = a * t[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:33:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   33 |         [01;31m[KvScale = vmax[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:39:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   39 |         [01;31m[KvScale = a * t[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:46:12:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   46 |     [01;31m[KvScale = vScale / vmax[m[K;
+      |     [01;31m[K~~~~~~~^~~~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/traj_test_copy.dir/build.make:90: CMakeFiles/traj_test_copy.dir/src/motionProfiling.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/traj_test_copy.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
