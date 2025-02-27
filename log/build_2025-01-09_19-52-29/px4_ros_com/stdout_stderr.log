@@ -1,0 +1,44 @@
+[35m[1mConsolidate compiler generated dependencies of target traj_test[0m
+[35m[1mConsolidate compiler generated dependencies of target test_trajectory[0m
+[ 16%] Built target frame_transforms
+[ 16%] Built target ament_cmake_python_copy_px4_ros_com
+[ 33%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/traj_test.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/test/test_trajectory.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/trajectory.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/trajectory.cpp.o[0m
+running egg_info
+writing px4_ros_com.egg-info/PKG-INFO
+writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+writing top-level names to px4_ros_com.egg-info/top_level.txt
+reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[ 50%] Built target ament_cmake_python_build_px4_ros_com_egg
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:[m[K In member function ‘[01m[KEigen::Vector3f Trajectory::getPosition(rclcpp::Publisher<visualization_msgs::msg::Marker_<std::allocator<void> > >::SharedPtr, float, float&)[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:129:103:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kmarker_heading_pub[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  129 | Eigen::Vector3f Trajectory::getPosition([01;35m[Krclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub[m[K, float t, float &heading) {
+      |                                         [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:[m[K In member function ‘[01m[KEigen::Vector3f Trajectory::getPosition(rclcpp::Publisher<visualization_msgs::msg::Marker_<std::allocator<void> > >::SharedPtr, float, float&)[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:129:103:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kmarker_heading_pub[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+  129 | Eigen::Vector3f Trajectory::getPosition([01;35m[Krclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub[m[K, float t, float &heading) {
+      |                                         [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:[m[K In member function ‘[01m[Kvoid OffboardControl::publish_trajectory_setpoint(float)[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:290:52:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[KTrajectory::getPosition(float&, px4_msgs::msg::TrajectorySetpoint_<std::allocator<void> >::_yaw_type&)[m[K’
+  290 |                         pos = [01;31m[KcurrTraj->getPosition(t, msg.yaw)[m[K;
+      |                               [01;31m[K~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~[m[K
+In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:10[m[K:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:40:21:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KEigen::Vector3f Trajectory::getPosition(rclcpp::Publisher<visualization_msgs::msg::Marker_<std::allocator<void> > >::SharedPtr, float, float&)[m[K’
+   40 |     Eigen::Vector3f [01;36m[KgetPosition[m[K(rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub, float t, float &heading);
+      |                     [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:40:21:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 2 provided
+In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:10[m[K:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:41:21:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[KEigen::Vector3f Trajectory::getPosition(float)[m[K’
+   41 |     Eigen::Vector3f [01;36m[KgetPosition[m[K(float t);
+      |                     [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:41:21:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 2 provided
+gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:76: CMakeFiles/traj_test.dir/src/traj_test.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+[ 58%] [32m[1mLinking CXX executable test_trajectory[0m
+gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 75%] Built target test_trajectory
+gmake: *** [Makefile:146: all] Error 2

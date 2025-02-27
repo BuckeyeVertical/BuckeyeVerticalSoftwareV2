@@ -1,0 +1,15 @@
+[  5%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/lib/frame_transforms.cpp.o[0m
+[ 17%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/rviz_utils.cpp.o[0m
+[ 17%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/motionProfiling.cpp.o[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o[0m
+[ 35%] Built target frame_transforms
+[ 35%] Built target ament_cmake_python_copy_px4_ros_com
+[ 94%] Built target traj_test
+[ 94%] Built target test_trajectory
+running egg_info
+writing px4_ros_com.egg-info/PKG-INFO
+writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+writing top-level names to px4_ros_com.egg-info/top_level.txt
+reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[ 94%] Built target ament_cmake_python_build_px4_ros_com_egg

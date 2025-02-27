@@ -6,6 +6,7 @@
 #include <visualization_msgs/msg/marker.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include "rviz_utils.h"
+#include <rclcpp/rclcpp.hpp>
 
 typedef Eigen::Spline<float, 3> Spline3f;
 
@@ -22,6 +23,7 @@ private:
     bool splineInitialized;
     float splineLength;
     float totalTime;
+    
 
 public:
     Trajectory(double vmax, double timeToMaxV, const std::vector<Eigen::Vector3f> *waypoints){
@@ -35,7 +37,7 @@ public:
         splineLength = generateTrajectory();
     }
 
-    Eigen::Vector3f getPosition(float t, float &heading);
+    Eigen::Vector3f getPosition(rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub, float t, float &heading);
     Eigen::Vector3f getPosition(float t);
 
     Spline3f getSpline();

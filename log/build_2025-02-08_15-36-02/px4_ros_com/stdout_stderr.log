@@ -1,0 +1,63 @@
+[35m[1mConsolidate compiler generated dependencies of target traj_test_copy[0m
+[ 11%] Built target frame_transforms
+[ 11%] Built target ament_cmake_python_copy_px4_ros_com
+[ 41%] Built target traj_test
+[ 70%] Built target test_trajectory
+[ 76%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/traj_test_copy.cpp.o[0m
+[ 82%] [32mBuilding CXX object CMakeFiles/traj_test_copy.dir/src/motionProfiling.cpp.o[0m
+running egg_info
+writing px4_ros_com.egg-info/PKG-INFO
+writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+writing top-level names to px4_ros_com.egg-info/top_level.txt
+reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[ 82%] Built target ament_cmake_python_build_px4_ros_com_egg
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K In member function ‘[01m[Kfloat MotionProfiling::getTimeScaledParameter(float) const[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:26:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   26 |         [01;31m[KvScale = a * t[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:33:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   33 |         [01;31m[KvScale = vmax[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:39:16:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   39 |         [01;31m[KvScale = a * t[m[K;
+      |         [01;31m[K~~~~~~~^~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:46:12:[m[K [01;31m[Kerror: [m[Kassignment of member ‘[01m[KMotionProfiling::vScale[m[K’ in read-only object
+   46 |     [01;31m[KvScale = vScale / vmax[m[K
+      |     [01;31m[K~~~~~~~^~~~~~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K In member function ‘[01m[Kfloat MotionProfiling::getvScale()[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:54:18:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K}[m[K’ token
+   54 |     return vScale
+      |                  [01;31m[K^[m[K
+      |                  [32m[K;[m[K
+   55 | [32m[K}[m[K
+      | [32m[K~[m[K                 
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K At global scope:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:57:17:[m[K [01;31m[Kerror: [m[K‘[01m[KMotiionProfiling[m[K’ has not been declared
+   57 | Eigen::Vector3f [01;31m[KMotiionProfiling[m[K::getVelocity(){
+      |                 [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K In function ‘[01m[KEigen::Vector3f getVelocity()[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:59:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kwaypoints[m[K’ was not declared in this scope
+   59 |     return (([01;31m[Kwaypoints[m[K->at(1) - waypoints->at(0))/calculateLineLength()) * vScale
+      |              [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:59:51:[m[K [01;31m[Kerror: [m[K‘[01m[KcalculateLineLength[m[K’ was not declared in this scope
+   59 |     return ((waypoints->at(1) - waypoints->at(0))/[01;31m[KcalculateLineLength[m[K()) * vScale
+      |                                                   [01;31m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:59:76:[m[K [01;31m[Kerror: [m[K‘[01m[KvScale[m[K’ was not declared in this scope
+   59 |     return ((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * [01;31m[KvScale[m[K
+      |                                                                            [01;31m[K^~~~~~[m[K
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:59:82:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K}[m[K’ token
+   59 |     return ((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale
+      |                                                                                  [01;31m[K^[m[K
+      |                                                                                  [32m[K;[m[K
+   60 | 
+   61 | [32m[K}[m[K
+      | [32m[K~[m[K                                                                                 
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:[m[K In member function ‘[01m[Kfloat MotionProfiling::getTimeScaledParameter(float) const[m[K’:
+[01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/motionProfiling.cpp:49:1:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreturn-type-Wreturn-type]8;;[m[K]
+   49 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+gmake[2]: *** [CMakeFiles/traj_test_copy.dir/build.make:90: CMakeFiles/traj_test_copy.dir/src/motionProfiling.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:198: CMakeFiles/traj_test_copy.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

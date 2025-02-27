@@ -20,3 +20,30 @@ ros2 launch px4_ros_com traj_test.launch.py
 Params to change:
 UXRCE_DDS_SYNCT 0
 NAV_DLL_ACT 0
+
+
+
+
+Shankar notes:
+How to get it to work every time:
+
+
+terminal 1:
+
+make px4_sitl gz_x500
+
+terminal 2:
+MicroXRCEAgent udp4 -p 8888
+
+terminal 3:
+
+if changes were made
+
+source /opt/ros/humble/setup.bash
+colcon build
+
+source install/local_setup.bash
+ros2 launch px4_ros_com traj_test.launch.py
+
+
+if you just want to just run it again, just run the last one

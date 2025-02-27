@@ -37,6 +37,7 @@ public:
 		marker_wp_pub = this->create_publisher<visualization_msgs::msg::Marker>("waypoint_marker", 10);
 		marker_drone_pub = this->create_publisher<visualization_msgs::msg::Marker>("drone_marker", 10);
 		marker_heading_pub = this->create_publisher<visualization_msgs::msg::Marker>("heading_marker", 10);
+		marker_derivative_pub = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
 
 		rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
 		auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
@@ -132,6 +133,7 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_wp_pub;
 	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_drone_pub;
 	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub;
+	rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_derivative_pub;
 
 	rclcpp::Subscription<VehicleLocalPosition>::SharedPtr vehicle_local_position_;
     rclcpp::Subscription<VehicleStatus>::SharedPtr vehicle_status_;
@@ -286,7 +288,7 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 			msg.yaw = -atan2(currTraj->getSpline().derivatives(0.0, 1)(1), currTraj->getSpline().derivatives(0.0, 1)(0));
 			break;
 		case FOLLOW_TRAJECTORY:
-			pos = currTraj->getPosition(t, msg.yaw);
+			pos = currTraj->getPosition(marker_derivative_pub, t, msg.yaw);
 			break;
 		case LOITER:
 		case LAND:
@@ -294,9 +296,9 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 			break;
 	}
 
-	std::cout << "Heading: " << msg.yaw << std::endl;
+	//std::cout << "Heading: " << msg.yaw << std::endl;
 
-    std::cout << "Pos: " << pos << std::endl;
+    //std::cout << "Pos: " << pos << std::endl;
     
 	msg.position = {-pos.x(), pos.y(), -pos.z()};
 	msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;

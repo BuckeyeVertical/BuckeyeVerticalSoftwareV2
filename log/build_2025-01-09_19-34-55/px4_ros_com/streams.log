@@ -1,0 +1,103 @@
+[0.211s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com -DCMAKE_INSTALL_PREFIX=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com
+[0.534s] -- The C compiler identification is GNU 11.4.0
+[2.106s] -- The CXX compiler identification is GNU 11.4.0
+[3.410s] -- Detecting C compiler ABI info
+[3.896s] -- Detecting C compiler ABI info - done
+[3.914s] -- Check for working C compiler: /usr/bin/cc - skipped
+[3.915s] -- Detecting C compile features
+[3.916s] -- Detecting C compile features - done
+[3.921s] -- Detecting CXX compiler ABI info
+[4.327s] -- Detecting CXX compiler ABI info - done
+[4.342s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[4.342s] -- Detecting CXX compile features
+[4.343s] -- Detecting CXX compile features - done
+[4.345s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[4.503s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[4.580s] -- Found builtin_interfaces: 1.2.1 (/opt/ros/humble/share/builtin_interfaces/cmake)
+[5.224s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[5.228s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[5.235s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[5.245s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[5.262s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[5.280s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[5.292s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[5.293s] -- Found visualization_msgs: 4.2.4 (/opt/ros/humble/share/visualization_msgs/cmake)
+[5.372s] -- Found px4_msgs: 2.0.1 (/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/cmake)
+[5.383s] -- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)
+[5.419s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[5.421s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[9.900s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[14.795s] -- Found FastRTPS: /opt/ros/humble/include  
+[25.176s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[25.183s] -- Looking for pthread.h
+[25.583s] -- Looking for pthread.h - found
+[25.583s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[25.922s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[25.924s] -- Found Threads: TRUE  
+[25.972s] -- Found rclpy: 3.3.15 (/opt/ros/humble/share/rclpy/cmake)
+[25.986s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[26.113s] -- Added test 'copyright' to check source files copyright and LICENSE
+[26.118s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[26.118s] -- Configured cppcheck include dirs: /home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include;$<BUILD_INTERFACE:/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/px4_ros_com>
+[26.118s] -- Configured cppcheck exclude dirs and/or files: 
+[26.119s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[26.119s] -- Configured cpplint exclude dirs and/or files: 
+[26.120s] -- Added test 'flake8' to check Python code syntax and style conventions
+[26.121s] -- Added test 'lint_cmake' to check CMake code style
+[26.122s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[26.123s] -- Added test 'uncrustify' to check C / C++ code style
+[26.123s] -- Configured uncrustify additional arguments: 
+[26.124s] -- Added test 'xmllint' to check XML markup files
+[26.126s] -- Configuring done
+[26.150s] -- Generating done
+[26.157s] -- Build files have been written to: /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com
+[26.170s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '0': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com -DCMAKE_INSTALL_PREFIX=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com
+[26.171s] Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[26.219s] [  8%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/test/test_trajectory.cpp.o[0m
+[26.219s] [ 16%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/trajectory.cpp.o[0m
+[26.219s] [ 25%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/trajectory.cpp.o[0m
+[26.220s] [ 33%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/traj_test.cpp.o[0m
+[26.220s] [ 41%] [32mBuilding CXX object CMakeFiles/frame_transforms.dir/src/lib/frame_transforms.cpp.o[0m
+[26.221s] [ 50%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/lib/frame_transforms.cpp.o[0m
+[26.221s] [ 66%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o[0m
+[26.222s] [ 66%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o[0m
+[26.223s] [ 75%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/lib/frame_transforms.cpp.o[0m
+[26.230s] [ 75%] Built target ament_cmake_python_copy_px4_ros_com
+[26.665s] running egg_info
+[26.666s] creating px4_ros_com.egg-info
+[26.667s] writing px4_ros_com.egg-info/PKG-INFO
+[26.667s] writing dependency_links to px4_ros_com.egg-info/dependency_links.txt
+[26.668s] writing top-level names to px4_ros_com.egg-info/top_level.txt
+[26.668s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[26.672s] reading manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[26.672s] writing manifest file 'px4_ros_com.egg-info/SOURCES.txt'
+[26.708s] [ 75%] Built target ament_cmake_python_build_px4_ros_com_egg
+[31.589s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/test/test_trajectory.cpp:1[m[K:
+[31.589s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[31.589s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[31.590s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[31.631s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:1[m[K:
+[31.631s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[31.632s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[31.632s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[31.716s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/trajectory.cpp:1[m[K:
+[31.716s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[31.716s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[31.716s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[31.794s] In file included from [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/src/traj_test.cpp:10[m[K:
+[31.794s] [01m[K/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com/include/trajectory.h:25:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmarker_derivative_pub[m[K’ does not name a type
+[31.795s]    25 |     [01;31m[Kmarker_derivative_pub[m[K = this->create_publisher<visualization_msgs::msg::Marker>("derivative_marker", 10);
+[31.795s]       |     [01;31m[K^~~~~~~~~~~~~~~~~~~~~[m[K
+[33.990s] gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:76: CMakeFiles/test_trajectory.dir/test/test_trajectory.cpp.o] Error 1
+[33.991s] gmake[2]: *** Waiting for unfinished jobs....
+[37.809s] [ 83%] [32m[1mLinking CXX shared library libframe_transforms.so[0m
+[37.845s] gmake[2]: *** [CMakeFiles/test_trajectory.dir/build.make:90: CMakeFiles/test_trajectory.dir/src/trajectory.cpp.o] Error 1
+[37.931s] gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:90: CMakeFiles/traj_test.dir/src/trajectory.cpp.o] Error 1
+[37.931s] gmake[2]: *** Waiting for unfinished jobs....
+[38.194s] gmake[1]: *** [CMakeFiles/Makefile2:196: CMakeFiles/test_trajectory.dir/all] Error 2
+[38.194s] gmake[1]: *** Waiting for unfinished jobs....
+[38.256s] [ 83%] Built target frame_transforms
+[39.167s] gmake[2]: *** [CMakeFiles/traj_test.dir/build.make:76: CMakeFiles/traj_test.dir/src/traj_test.cpp.o] Error 1
+[39.168s] gmake[1]: *** [CMakeFiles/Makefile2:170: CMakeFiles/traj_test.dir/all] Error 2
+[39.168s] gmake: *** [Makefile:146: all] Error 2
+[39.172s] Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '2': AMENT_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:${LD_LIBRARY_PATH} PYTHONPATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16

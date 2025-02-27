@@ -126,16 +126,25 @@ Spline3f Trajectory::getSpline(){
     return spline;
 }
 
-Eigen::Vector3f Trajectory::getPosition(float t, float &heading) {
+Eigen::Vector3f Trajectory::getPosition(rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub, float t, float &heading) {
     assert(splineInitialized && "Spline not initialized!");
 
     // Get time-scaled parameter
     float u = getTimeScaledParameter(t);
 
-    heading = -atan2(spline.derivatives(u, 1)(1), spline.derivatives(u, 1)(0));
+    float dx = spline.derivatives(u, 1)(0);
+    float dy = spline.derivatives(u, 1)(1);
+
+    heading = -atan2(dy, dx);
     
+    Eigen::Vector3f pos = spline(u);
+
+    visualization_msgs::msg::Marker dMarker = rviz_utils::createArrowMarker(pos, dx, dy, "/map");
+
+    marker_heading_pub->publish(dMarker);
+
     // Get position from spline
-    return spline(u);
+    return pos;
 }
 
 Eigen::Vector3f Trajectory::getPosition(float t) {

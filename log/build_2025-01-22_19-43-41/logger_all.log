@@ -1,0 +1,223 @@
+[0.492s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.492s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=16, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7f2e58db5750>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7f2e58f32f50>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7f2e58f32f50>>)
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.994s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.994s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/kvvnbs/BuckeyeVerticalSoftwareV2'
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.994s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.014s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.014s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.014s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.015s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.015s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.015s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.015s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.016s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.016s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.016s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.016s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.017s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ignore', 'ignore_ament_install']
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ignore_ament_install'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_pkg']
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_pkg'
+[1.018s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['colcon_meta']
+[1.019s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'colcon_meta'
+[1.019s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extensions ['ros']
+[1.019s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_msgs) by extension 'ros'
+[1.023s] DEBUG:colcon.colcon_core.package_identification:Package 'src/px4_msgs' with type 'ros.ament_cmake' and name 'px4_msgs'
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['ignore', 'ignore_ament_install']
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ignore'
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ignore_ament_install'
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['colcon_pkg']
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'colcon_pkg'
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['colcon_meta']
+[1.023s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'colcon_meta'
+[1.024s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extensions ['ros']
+[1.024s] Level 1:colcon.colcon_core.package_identification:_identify(src/px4_ros_com) by extension 'ros'
+[1.025s] DEBUG:colcon.colcon_core.package_identification:Package 'src/px4_ros_com' with type 'ros.ament_cmake' and name 'px4_ros_com'
+[1.025s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.025s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.025s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.025s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.025s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.077s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.077s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.084s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/kvvnbs/BuckeyeVerticalSoftwareV2/install
+[1.086s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 270 installed packages in /opt/ros/humble
+[1.087s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_args' from command line to 'None'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_target' from command line to 'None'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[1.219s] Level 5:colcon.colcon_core.verb:set package 'px4_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.219s] DEBUG:colcon.colcon_core.verb:Building package 'px4_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs', 'merge_install': False, 'path': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_msgs', 'symlink_install': False, 'test_result_base': None}
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_args' from command line to 'None'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_target' from command line to 'None'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_clean_cache' from command line to 'False'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_clean_first' from command line to 'False'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'cmake_force_configure' from command line to 'False'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'ament_cmake_args' from command line to 'None'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'catkin_cmake_args' from command line to 'None'
+[1.220s] Level 5:colcon.colcon_core.verb:set package 'px4_ros_com' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.220s] DEBUG:colcon.colcon_core.verb:Building package 'px4_ros_com' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com', 'merge_install': False, 'path': '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com', 'symlink_install': False, 'test_result_base': None}
+[1.221s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.222s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.222s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_msgs' with build type 'ament_cmake'
+[1.223s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_msgs'
+[1.228s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.229s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.229s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.246s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs -- -j16 -l16
+[2.528s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs -- -j16 -l16
+[2.539s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs
+[3.148s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_msgs)
+[3.173s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_msgs
+[3.181s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs' for CMake module files
+[3.182s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs' for CMake config files
+[3.210s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'cmake_prefix_path')
+[3.211s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.ps1'
+[3.212s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.dsv'
+[3.214s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.sh'
+[3.215s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib'
+[3.215s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'ld_library_path_lib')
+[3.215s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.ps1'
+[3.215s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.dsv'
+[3.216s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.sh'
+[3.216s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/bin'
+[3.216s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib/pkgconfig/px4_msgs.pc'
+[3.216s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib/python3.10/site-packages'
+[3.217s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/bin'
+[3.217s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.ps1'
+[3.218s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.dsv'
+[3.219s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.sh'
+[3.220s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.bash'
+[3.221s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.zsh'
+[3.222s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/colcon-core/packages/px4_msgs)
+[3.223s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_msgs)
+[3.223s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs' for CMake module files
+[3.224s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs' for CMake config files
+[3.230s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'cmake_prefix_path')
+[3.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.ps1'
+[3.230s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.dsv'
+[3.230s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/cmake_prefix_path.sh'
+[3.231s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib'
+[3.231s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_msgs', 'ld_library_path_lib')
+[3.231s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.ps1'
+[3.231s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.dsv'
+[3.232s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/hook/ld_library_path_lib.sh'
+[3.232s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/bin'
+[3.232s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib/pkgconfig/px4_msgs.pc'
+[3.232s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib/python3.10/site-packages'
+[3.233s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/bin'
+[3.233s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.ps1'
+[3.233s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.dsv'
+[3.234s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.sh'
+[3.234s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.bash'
+[3.235s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/px4_msgs/package.zsh'
+[3.235s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/share/colcon-core/packages/px4_msgs)
+[3.235s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com' with build type 'ament_cmake'
+[3.236s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/src/px4_ros_com'
+[3.236s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.236s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.488s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[22.196s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '0': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --build /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com -- -j16 -l16
+[22.199s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com
+[22.287s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_ros_com)
+[22.288s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com' for CMake module files
+[22.289s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com' returned '0': CMAKE_PREFIX_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com:/opt/ros/humble LD_LIBRARY_PATH=/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_msgs/lib:/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib /usr/bin/cmake --install /home/kvvnbs/BuckeyeVerticalSoftwareV2/build/px4_ros_com
+[22.290s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com' for CMake config files
+[22.298s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'cmake_prefix_path')
+[22.298s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.ps1'
+[22.300s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.dsv'
+[22.301s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.sh'
+[22.302s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib'
+[22.302s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'ld_library_path_lib')
+[22.302s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.ps1'
+[22.303s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.dsv'
+[22.304s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.sh'
+[22.304s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/bin'
+[22.304s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/pkgconfig/px4_ros_com.pc'
+[22.304s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/python3.10/site-packages'
+[22.305s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/bin'
+[22.305s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.ps1'
+[22.306s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.dsv'
+[22.307s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.sh'
+[22.308s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.bash'
+[22.308s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.zsh'
+[22.308s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/colcon-core/packages/px4_ros_com)
+[22.309s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(px4_ros_com)
+[22.309s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com' for CMake module files
+[22.310s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com' for CMake config files
+[22.310s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'cmake_prefix_path')
+[22.311s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.ps1'
+[22.311s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.dsv'
+[22.312s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/cmake_prefix_path.sh'
+[22.313s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib'
+[22.313s] Level 1:colcon.colcon_core.shell:create_environment_hook('px4_ros_com', 'ld_library_path_lib')
+[22.313s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.ps1'
+[22.314s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.dsv'
+[22.314s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/hook/ld_library_path_lib.sh'
+[22.315s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/bin'
+[22.315s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/pkgconfig/px4_ros_com.pc'
+[22.315s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/python3.10/site-packages'
+[22.315s] Level 1:colcon.colcon_core.environment:checking '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/bin'
+[22.316s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.ps1'
+[22.316s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.dsv'
+[22.317s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.sh'
+[22.317s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.bash'
+[22.318s] INFO:colcon.colcon_core.shell:Creating package script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/px4_ros_com/package.zsh'
+[22.318s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/px4_ros_com/share/colcon-core/packages/px4_ros_com)
+[22.319s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[22.319s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[22.319s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[22.319s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[22.438s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[22.439s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[22.439s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[22.439s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[22.445s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.ServiceUnknown: The name org.freedesktop.Notifications was not provided by any .service files
+[22.445s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[22.446s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/local_setup.ps1'
+[22.448s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/_local_setup_util_ps1.py'
+[22.450s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/setup.ps1'
+[22.451s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/local_setup.sh'
+[22.452s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/_local_setup_util_sh.py'
+[22.452s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/setup.sh'
+[22.454s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/local_setup.bash'
+[22.455s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/setup.bash'
+[22.456s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/local_setup.zsh'
+[22.457s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kvvnbs/BuckeyeVerticalSoftwareV2/install/setup.zsh'

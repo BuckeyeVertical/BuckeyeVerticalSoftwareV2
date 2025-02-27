@@ -20,6 +20,13 @@ def generate_launch_description():
         output='screen'
     )
 
+    traj_test_node = Node(
+        package='px4_ros_com',
+        executable='traj_test_copy',
+        output='screen',
+        shell=True,
+    )
+
     # Node to start RViz
     rviz_node = Node(
         package='rviz2',
@@ -44,6 +51,6 @@ def generate_launch_description():
 
     return LaunchDescription([
         micro_ros_agent,
-        delay_timer,
+        traj_test_node,
         rviz_node
     ])
