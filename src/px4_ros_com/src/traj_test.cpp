@@ -67,7 +67,7 @@ public:
                 start_time = this->now();
             }
 
-			if (offboard_setpoint_counter_ == 10){
+			if (offboard_setpoint_counter_ == 26){
 				std::cout << "Publishing offboard" << std::endl;
 				// Change to Offboard mode after 10 setpoints
 				this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
@@ -90,7 +90,8 @@ public:
             }
 
             // stop the counter after reaching 11
-			if (offboard_setpoint_counter_ < 11) {
+			if (offboard_setpoint_counter_ < 25) {
+				std::cout << "Sending traj viz msg" << std::endl;
 				currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
                 publish_offboard_control_mode();
                 publish_trajectory_setpoint(0);

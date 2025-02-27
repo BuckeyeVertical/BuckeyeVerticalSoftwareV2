@@ -1,6 +1,0 @@
-[ 16%] Built target frame_transforms
-[35m[1mConsolidate compiler generated dependencies of target traj_test[0m
-[ 25%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/traj_test.cpp.o[0m
-[ 33%] [32mBuilding CXX object CMakeFiles/traj_test.dir/src/rviz_utils.cpp.o[0m
-[ 33%] Built target ament_cmake_python_copy_px4_ros_com
-[ 41%] [32mBuilding CXX object CMakeFiles/test_trajectory.dir/src/rviz_utils.cpp.o[0m
