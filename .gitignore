@@ -23,6 +23,9 @@ devel_isolated/
 /cfg/cpp/
 /cfg/*.py
 
+venv/
+.venv/
+
 # Ignore generated docs
 *.dox
 *.wikidoc
