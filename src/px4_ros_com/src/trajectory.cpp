@@ -52,8 +52,6 @@ void Trajectory::sendVisualizeMsg(const rclcpp::Publisher<visualization_msgs::ms
         trajectory_points.push_back(getPosition(t));
     }
 
-    Eigen::Vector3f drone_position = getPosition(t); 
-
 
     // Create markers for visualization
     visualization_msgs::msg::Marker marker1 = rviz_utils::createLineMarker(trajectory_points, "/map");
