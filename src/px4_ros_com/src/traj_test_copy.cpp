@@ -69,7 +69,9 @@ public:
                 reset_time = false;
                 start_time = this->now();
             }
+
             std::cout << "offboard_setpoint_cointer: " << offboard_setpoint_counter_ << std::endl;
+
             if (offboard_setpoint_counter_ == 10){
                 std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
                 // Change to Offboard mode after 10 setpoints
@@ -194,10 +196,10 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     float dz = msg->z + target_pos.z();
     float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
-    std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
-    std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
-    std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
-    std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
+    //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
+    //std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
+    //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
+    //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
 
     visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
