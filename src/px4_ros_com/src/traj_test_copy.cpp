@@ -83,7 +83,8 @@ public:
            
             if (armed){
                 double elapsed_time = (this->now() - start_time).seconds();
-                //std::cout << "Elapsed time: " << elapsed_time << " seconds" << std::endl;
+                std::cout << "Elapsed time: " << elapsed_time << " seconds" << std::endl;
+
 
                 // offboard_control_mode needs to be paired with trajectory_setpoint
                 publish_offboard_control_mode();
@@ -196,6 +197,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
     std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
     std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
+
 
     visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
     marker_drone_pub->publish(drone_marker);
