@@ -189,6 +189,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 	float dz = msg->z + target_pos.z();
 	float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
+	std::cout << "Drone_Marker: Publishing " << -msg->x << ", " << msg->y << ", "<< -msg->z << std::endl;
 	visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
 	marker_drone_pub->publish(drone_marker);
 
