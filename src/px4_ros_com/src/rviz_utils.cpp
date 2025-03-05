@@ -14,7 +14,7 @@ visualization_msgs::msg::Marker rviz_utils::createLineMarker(const std::vector<E
     marker.scale.x = 0.1; // Line width
     marker.color.r = 1.0;
     marker.color.g = 0.0;
-    marker.color.b = 0.0;
+    marker.color.b = 1.0;
     marker.color.a = 1.0;
 
     for (const auto& point : points) {
