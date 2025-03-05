@@ -41,10 +41,10 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
 
-        vehicle_local_position = this->create_subscription<VehicleLocalPosition>("fmu/out/vehicle_local_position", qos,
+        vehicle_local_position_ = this->create_subscription<VehicleLocalPosition>("fmu/out/vehicle_local_position", qos,
                                                             std::bind(&OffboardControl::vehicle_local_position_callback, this, std::placeholders::_1));
 
-        vehicle_status = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
+        vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
                                                             std::bind(&OffboardControl::vehicle_status_callback, this, std::placeholders::_1));
 
         prev_time = this->now();
