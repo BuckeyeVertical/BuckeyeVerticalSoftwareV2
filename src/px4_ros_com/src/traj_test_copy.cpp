@@ -77,7 +77,8 @@ public:
                 // Change to Offboard mode after 10 setpoints
                 this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
 
-                rclcpp::sleep_for(1s);
+                // was 1 may need to change back
+                rclcpp::sleep_for(2s);
 
                 start_time = this->now();
 
