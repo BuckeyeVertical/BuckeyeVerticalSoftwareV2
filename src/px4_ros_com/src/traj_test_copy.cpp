@@ -57,6 +57,7 @@ public:
         waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 
+        std::cout << "Pushed waypoints" << std::endl;
 
         currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &waypoints);
 
