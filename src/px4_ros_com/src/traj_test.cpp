@@ -92,7 +92,7 @@ public:
             // stop the counter after reaching 11
 			if (offboard_setpoint_counter_ < 25) {
 				std::cout << "Sending traj viz msg" << std::endl;
-				currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub, marker_drone_pub);
+				currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
                 publish_offboard_control_mode();
                 publish_trajectory_setpoint(0);
 

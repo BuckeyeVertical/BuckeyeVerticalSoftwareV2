@@ -42,7 +42,7 @@ float Trajectory::getTimeScaledParameter(float t) const {
 }
 
 // Only call this function once. Loops through all points and sends then to visualizer.
-void Trajectory::sendVisualizeMsg(const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker1_pub, const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker2_pub, const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker3_pub){
+void Trajectory::sendVisualizeMsg(const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker1_pub, const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker2_pub){
     // Sample points along the trajectory
     std::vector<Eigen::Vector3f> trajectory_points;
     const int samples = 100;
@@ -58,11 +58,9 @@ void Trajectory::sendVisualizeMsg(const rclcpp::Publisher<visualization_msgs::ms
     // Create markers for visualization
     visualization_msgs::msg::Marker marker1 = rviz_utils::createLineMarker(trajectory_points, "/map");
     visualization_msgs::msg::Marker marker2 = rviz_utils::createPointMarker(*waypoints, "/map");
-    visualization_msgs::msg::Marker marker3 = rviz_utils::createSquareMarker()
     
     marker1_pub->publish(marker1); 
     marker2_pub->publish(marker2); 
-    marker3_pub->publish(marker3); 
 
 }
 
