@@ -69,7 +69,7 @@ public:
                 reset_time = false;
                 start_time = this->now();
             }
-
+            std::cout << "offboard_setpoint_cointer: " << offboard_setpoint_counter_ << std::endl;
             if (offboard_setpoint_counter_ == 10){
                 std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
                 // Change to Offboard mode after 10 setpoints
