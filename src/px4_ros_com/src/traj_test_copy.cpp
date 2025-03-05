@@ -77,8 +77,7 @@ public:
                 // Change to Offboard mode after 10 setpoints
                 this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
 
-                // was 1 may need to change back
-                rclcpp::sleep_for(2s);
+                rclcpp::sleep_for(1s);
 
                 start_time = this->now();
 
@@ -319,6 +318,8 @@ void OffboardControl::publish_vehicle_command(uint16_t command, float param1, fl
     msg.from_external = true;
     msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
     vehicle_command_publisher_->publish(msg);
+    std::cout << "Publishing vehicle command..." << std::endl;
+
 }
 
 int main(int argc, char *argv[])
