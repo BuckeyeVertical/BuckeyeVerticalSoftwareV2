@@ -88,7 +88,7 @@ visualization_msgs::msg::Marker rviz_utils::createArrowMarker(const Eigen::Vecto
     // Set the color (red)
     marker.color.r = 1.0;
     marker.color.g = 0.0;
-    marker.color.b = 0.0;
+    marker.color.b = 1.0;
     marker.color.a = 1.0;
 
     // Set the position of the arrow
