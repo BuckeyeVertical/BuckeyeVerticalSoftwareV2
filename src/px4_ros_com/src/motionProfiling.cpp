@@ -94,12 +94,7 @@ float MotionProfiling::generateTrajectory(){
     float a = vmax / timeToMaxV;
 
     float trajectoryLength = calculateLineLength();
-    
-    float accel_dist = (vmax * timeToMaxV);
-    
-    totalTime = ((trajectoryLength - accel_dist)/vmax) + 2 * timeToMaxV;
-
-    //totalTime = trajectoryLength / (vmax + 2 * timeToMaxV);
+    totalTime = trajectoryLength / vmax + timeToMaxV;
 
     // Acceleration
     
