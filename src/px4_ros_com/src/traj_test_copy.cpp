@@ -286,8 +286,15 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     //Eigen::Vector3f vel = currTraj->getVelocity();
     //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
+<<<<<<< HEAD
     //msg.position = {-pos.x(), pos.y(), -pos.z()};
     //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
+=======
+
+    std::cout << "Vel: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
+    //msg.position = {-pos.x(), pos.y(), -pos.z()};
+    msg.velocity = {-vel.x(),vel.y(),-vel.z()};
+>>>>>>> ed61c3e (testing no pos controller)
     msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
     trajectory_setpoint_publisher_->publish(msg);
 
