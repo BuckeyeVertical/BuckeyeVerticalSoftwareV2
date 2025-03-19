@@ -44,7 +44,14 @@ float MotionProfiling::getTimeScaledParameter(float t){
     }
 
     vScale = vScale / vmax;
+<<<<<<< HEAD
     
+=======
+
+    std::cout << "VScale: " << vScale << std::endl;
+
+
+>>>>>>> 85b881d (debug)
     return x / lineLength;
 }
 
