@@ -265,18 +265,17 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 
     switch (drone_state){
         case TAKEOFF:
-            Eigen::Vector3f vel = currTraj->getVelocity();
+            vel = currTraj->getVelocity();
             std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = target_pos;
-            msg.yaw = -atan2(pos.y(), pos.x());
+            
             msg.position = {-pos.x(), pos.y(), -pos.z()};
             //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case FOLLOW_TRAJECTORY:
-            Eigen::Vector3f vel = currTraj->getVelocity();
+            vel = currTraj->getVelocity(t);
             std::cout << "In Follow Taj: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = currTraj->getPosition(t, msg.yaw);
-            //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case LOITER:
         case LAND:
@@ -290,15 +289,9 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     //Eigen::Vector3f vel = currTraj->getVelocity();
     //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
-<<<<<<< HEAD
-    //msg.position = {-pos.x(), pos.y(), -pos.z()};
-    //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
-=======
-
-    std::cout << "Vel: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
-    //msg.position = {-pos.x(), pos.y(), -pos.z()};
+    msg.yaw = -atan2(pos.y(), pos.x());
+    msg.position = {-pos.x(), pos.y(), -pos.z()};
     msg.velocity = {-vel.x(),vel.y(),-vel.z()};
->>>>>>> ed61c3e (testing no pos controller)
     msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
     trajectory_setpoint_publisher_->publish(msg);
 
