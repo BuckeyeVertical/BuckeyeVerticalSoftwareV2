@@ -44,14 +44,7 @@ float MotionProfiling::getTimeScaledParameter(float t){
     }
 
     vScale = vScale / vmax;
-<<<<<<< HEAD
     
-=======
-
-    std::cout << "VScale: " << vScale << std::endl;
-
-
->>>>>>> 85b881d (debug)
     return x / lineLength;
 }
 
@@ -64,8 +57,8 @@ float MotionProfiling::getvScale(){
 Eigen::Vector3f MotionProfiling::getVelocity(){
     std::cout << "V out: " << vScale << std::endl;
 
-    return ((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale;
-    //return Eigen::Vector3f(10.0, 0.0, 0.0);
+    return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
+
 }
 
 
