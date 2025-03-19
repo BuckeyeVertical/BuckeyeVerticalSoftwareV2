@@ -55,6 +55,15 @@ float MotionProfiling::getvScale(){
 }
 
 Eigen::Vector3f MotionProfiling::getVelocity(){
+<<<<<<< HEAD
+=======
+
+    Eigen::Vector3f diff = (waypoints->at(1) - waypoints->at(0));
+    std::cout << "Waypoint difference: " << diff.x() << diff.y() << diff.z() << std::endl;
+    std::cout << "Line length: " << calculateLineLength() << std::endl;
+
+
+>>>>>>> 2f9c2c2 (debug messages line length)
     return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
 }
 
