@@ -36,7 +36,6 @@ float MotionProfiling::getTimeScaledParameter(float t){
     else if (t > (totalTime - timeToMaxV) && t <= totalTime) {
         // std::cout << "Deceleration phase!" << std::endl;
         x = lineLength - 0.5 * a * (totalTime - t) * (totalTime - t);
-        //vScale = a * t;
         vScale = a * (totalTime - t);
     }
     else {
