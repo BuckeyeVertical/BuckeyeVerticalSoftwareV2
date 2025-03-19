@@ -55,10 +55,7 @@ float MotionProfiling::getvScale(){
 }
 
 Eigen::Vector3f MotionProfiling::getVelocity(){
-    std::cout << "V out: " << vScale << std::endl;
-
     return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
-
 }
 
 
