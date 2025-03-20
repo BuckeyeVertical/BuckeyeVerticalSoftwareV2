@@ -282,6 +282,7 @@ void OffboardControl::publish_trajectory_setpoint(float t)
             pos = target_pos;
             break;
     }
+    
 
     //std::cout << "Heading: " << msg.yaw << std::endl;
     //std::cout << "Pos: " << pos.x() << " " << pos.y() << " " << pos.z() << std::endl;
