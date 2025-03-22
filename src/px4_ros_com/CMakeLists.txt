@@ -57,6 +57,11 @@ add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/r
 ament_target_dependencies(test_trajectory rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS test_trajectory DESTINATION lib/${PROJECT_NAME})
 
+# offboard_control
+add_executable(offboard_control src/offboard_control.cpp)
+ament_target_dependencies(offboard_control rclcpp px4_msgs)
+install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
+
 ############
 # Install ##
 ############

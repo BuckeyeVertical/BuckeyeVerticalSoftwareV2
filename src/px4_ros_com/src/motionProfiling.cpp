@@ -36,7 +36,8 @@ float MotionProfiling::getTimeScaledParameter(float t){
     else if (t > (totalTime - timeToMaxV) && t <= totalTime) {
         // std::cout << "Deceleration phase!" << std::endl;
         x = lineLength - 0.5 * a * (totalTime - t) * (totalTime - t);
-        vScale = a * t;
+        //vScale = a * t;
+        vScale = a * (totalTime - t);
     }
     else {
         std::cout << "Returning 1" << std::endl;
@@ -44,7 +45,7 @@ float MotionProfiling::getTimeScaledParameter(float t){
     }
 
     vScale = vScale / vmax;
-
+    
     return x / lineLength;
 }
 
@@ -55,9 +56,10 @@ float MotionProfiling::getvScale(){
 }
 
 Eigen::Vector3f MotionProfiling::getVelocity(){
+    std::cout << "V out: " << vScale << std::endl;
 
     return ((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale;
-
+    //return Eigen::Vector3f(10.0, 0.0, 0.0);
 }
 
 
@@ -90,11 +92,18 @@ float MotionProfiling::generateTrajectory(){
         return 0.0f;
     }
 
+    float a = vmax / timeToMaxV;
+
     float trajectoryLength = calculateLineLength();
-    totalTime = trajectoryLength / vmax + timeToMaxV;
+    
+    float accel_dist = (vmax * timeToMaxV);
+    
+    totalTime = ((trajectoryLength - accel_dist)/vmax) + 2 * timeToMaxV;
+
+    //totalTime = trajectoryLength / (vmax + 2 * timeToMaxV);
 
     // Acceleration
-    float a = vmax / timeToMaxV;
+    
 
     // If profile is too short
     if (vmax * timeToMaxV > trajectoryLength) {
@@ -140,6 +149,7 @@ Eigen::Vector3f MotionProfiling::getPosition(float t, float &heading) {
 
     // Get time-scaled parameter
     float u = getTimeScaledParameter(t);
+    
 
     // Starting waypoint of line
     Eigen::Vector3f startPoint = waypoints->at(0);

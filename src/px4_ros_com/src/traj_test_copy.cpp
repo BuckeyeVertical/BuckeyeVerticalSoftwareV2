@@ -80,21 +80,17 @@ public:
 
                 this->arm();
             }
-           
-            if (armed){
-                double elapsed_time = (this->now() - start_time).seconds();
-                std::cout << "Elapsed time: " << elapsed_time << " seconds" << std::endl;
 
-                // offboard_control_mode needs to be paired with trajectory_setpoint
-                publish_offboard_control_mode();
-                publish_trajectory_setpoint(elapsed_time);
-            }
+            double elapsed_time = (this->now() - start_time).seconds();
+            std::cout << "Elapsed time: " << elapsed_time << " seconds" << std::endl;
+
+            // offboard_control_mode needs to be paired with trajectory_setpoint
+            publish_offboard_control_mode();
+            publish_trajectory_setpoint(elapsed_time);
 
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
                 currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
-                publish_offboard_control_mode();
-                publish_trajectory_setpoint(0);
 
                 offboard_setpoint_counter_++;
             }
@@ -255,7 +251,7 @@ void OffboardControl::disarm()
 void OffboardControl::publish_offboard_control_mode()
 {
     OffboardControlMode msg{};
-    msg.position = true;
+    msg.position = false;
     msg.velocity = true;
     msg.acceleration = false;
     msg.attitude = false;
@@ -268,14 +264,19 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 {
     TrajectorySetpoint msg{};
     Eigen::Vector3f pos;
+    Eigen::Vector3f vel = currTraj->getVelocity();
+    std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
     switch (drone_state){
         case TAKEOFF:
             pos = target_pos;
             msg.yaw = -atan2(pos.y(), pos.x());
+            msg.position = {-pos.x(), pos.y(), -pos.z()};
+            //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case FOLLOW_TRAJECTORY:
             pos = currTraj->getPosition(t, msg.yaw);
+            //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case LOITER:
         case LAND:
@@ -285,14 +286,12 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 
     //std::cout << "Heading: " << msg.yaw << std::endl;
     //std::cout << "Pos: " << pos.x() << " " << pos.y() << " " << pos.z() << std::endl;
-    
-    Eigen::Vector3f vel = currTraj->getVelocity();
 
+    //Eigen::Vector3f vel = currTraj->getVelocity();
+    //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
-
-
-    msg.position = {-pos.x(), pos.y(), -pos.z()};
-    msg.velocity = {-vel.x(),vel.y(),-vel.z()};
+    //msg.position = {-pos.x(), pos.y(), -pos.z()};
+    //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
     msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
     trajectory_setpoint_publisher_->publish(msg);
 
