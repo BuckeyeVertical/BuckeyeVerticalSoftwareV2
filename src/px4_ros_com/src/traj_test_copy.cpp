@@ -247,7 +247,7 @@ void OffboardControl::disarm()
 void OffboardControl::publish_offboard_control_mode()
 {
     OffboardControlMode msg{};
-    msg.position = false;
+    msg.position = true;
     msg.velocity = true;
     msg.acceleration = false;
     msg.attitude = false;
@@ -263,9 +263,10 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     Eigen::Vector3f vel = currTraj->getVelocity();
     std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
+    vel = currTraj->getVelocity(t);
+
     switch (drone_state){
         case TAKEOFF:
-            vel = currTraj->getVelocity();
             std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = target_pos;
             

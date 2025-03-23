@@ -20,23 +20,57 @@ float MotionProfiling::getTimeScaledParameter(float t){
 
     // Acceleration phase
     if (t >= 0.0 && t <= timeToMaxV) {
-        // std::cout << "Acceleration phase!" << std::endl;
-        x = 0.5 * a * t * t;
 
-        vScale = a * t;
+        x = 0.5 * a * t * t;
         
     }
     // Constant velocity phase
     else if (t > timeToMaxV && t <= (totalTime - timeToMaxV)) {
         // std::cout << "Constant velocity phase!" << std::endl;
         x = 0.5 * a * timeToMaxV * timeToMaxV + vmax * (t - timeToMaxV);
-        vScale = vmax;
     }
     // Deceleration phase
     else if (t > (totalTime - timeToMaxV) && t <= totalTime) {
         // std::cout << "Deceleration phase!" << std::endl;
         x = lineLength - 0.5 * a * (totalTime - t) * (totalTime - t);
+    }
+    else {
+        std::cout << "Returning 1" << std::endl;
+        return 1.0;  // Beyond total time
+    }
+
+    return x / lineLength;
+}
+
+
+float MotionProfiling::getvScale(float t){
+
+    // Handle edge cases
+    if (vmax <= 0.0 || timeToMaxV <= 0.0 || lineLength <= 0.0) {
+        std::cout << "Returning 0" << std::endl;
+        return 0.0;
+    }
+
+    float a = vmax / timeToMaxV;
+    float x;
+    float vScale = 0;
+
+    // Acceleration phase
+    if (t >= 0.0 && t <= timeToMaxV) {
+
+        vScale = a * t;
+        
+    }
+    // Constant velocity phase
+    else if (t > timeToMaxV && t <= (totalTime - timeToMaxV)) {
+
+        vScale = vmax;
+    }
+    // Deceleration phase
+    else if (t > (totalTime - timeToMaxV) && t <= totalTime) {
+
         vScale = a * (totalTime - t);
+
     }
     else {
         std::cout << "Returning 1" << std::endl;
@@ -44,18 +78,43 @@ float MotionProfiling::getTimeScaledParameter(float t){
     }
 
     vScale = vScale / vmax;
+<<<<<<< HEAD
     
     return x / lineLength;
 }
 
 
 float MotionProfiling::getvScale(){
+=======
+
+    std::cout << "VScale in timeScaledFunction: " << vScale << std::endl;
+>>>>>>> 5599b21 (Fixes velocity feedforward)
 
     return vScale;
 }
 
+<<<<<<< HEAD
 Eigen::Vector3f MotionProfiling::getVelocity(){
     return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
+=======
+// TODO: Add time as param
+Eigen::Vector3f MotionProfiling::getVelocity(float t){
+
+    //Eigen::Vector3f diff = (waypoints->at(1) - waypoints->at(0));
+    // std::cout << "Waypoint difference: " << diff.x() << diff.y() << diff.z() << std::endl;
+    // std::cout << "Line length: " << calculateLineLength() << std::endl;
+    //Eigen::Vector3f afterLineLegnth = (waypoints->at(1) - waypoints->at(0)) / 10;
+    // std::cout << "After division " << afterLineLegnth.x() << afterLineLegnth.y() << afterLineLegnth.z() << std::endl;
+    // std::cout << "vScale in getVelocity() " << vScale << std::endl;
+    // std::cout << "vmax " << vmax << std::endl;
+    //Eigen::Vector3f retVector = (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
+    // std::cout << "Final return difference: " << retVector.x() << retVector.y() << retVector.z() << std::endl;
+
+    
+
+    return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * getvScale(t)) * vmax;
+
+>>>>>>> 5599b21 (Fixes velocity feedforward)
 }
 
 

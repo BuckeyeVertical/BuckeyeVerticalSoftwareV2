@@ -20,7 +20,6 @@ private:
     float generateTrajectory();
     float lineLength;
     float totalTime;
-    float vScale;
 
 
 public:
@@ -30,7 +29,6 @@ public:
         this->timeToMaxV = timeToMaxV;
         this->lineLength = 0;
         this->totalTime = 0.0;
-        this->vScale = 0.0;
 
         lineLength = generateTrajectory();
     }
@@ -38,13 +36,13 @@ public:
     Eigen::Vector3f getPosition(float t, float &heading);
     Eigen::Vector3f getPosition(float t);
 
-    Eigen::Vector3f getVelocity();
+    Eigen::Vector3f getVelocity(float t);
 
     const std::vector<Eigen::Vector3f> getWaypoints();
     float getVMax();
     float getTimeToMaxV();
     float getTotalTime();
-    float getvScale();
+    float getvScale(float t);
     void setVMax(float vmax);
     void setTimeToMaxV(float timeToMaxV);
     void sendVisualizeMsg(const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker1_pub, const rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker2_pub);
