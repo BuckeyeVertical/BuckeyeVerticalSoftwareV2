@@ -82,16 +82,12 @@ public:
             }
 
             double elapsed_time = (this->now() - start_time).seconds();
-            std::cout << "Elapsed time: " << elapsed_time << " seconds" << std::endl;
-
-            // offboard_control_mode needs to be paired with trajectory_setpoint
+            currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
             publish_offboard_control_mode();
             publish_trajectory_setpoint(elapsed_time);
 
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
-                currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
-
                 offboard_setpoint_counter_++;
             }
         };
