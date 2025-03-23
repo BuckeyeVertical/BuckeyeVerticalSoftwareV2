@@ -30,4 +30,4 @@ source /bv_ws/BuckeyeVerticalSoftwareV2/install/local_setup.bash
 echo -e "${GREEN}Build complete. Starting ROS application...${NC}"
 pwd
 ls /bv_ws/BuckeyeVerticalSoftwareV2/install/px4_ros_com/lib/px4_ros_com
-ros2 launch px4_ros_com chirp.launch.py 2>&1 | tee "${LOG_DIR}/ros.log"
+ros2 run px4_ros_com traj_test_node 2>&1 | tee "${LOG_DIR}/ros.log"
