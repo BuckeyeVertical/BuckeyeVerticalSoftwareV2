@@ -16,7 +16,7 @@ float MotionProfiling::getTimeScaledParameter(float t){
     }
 
     float a = vmax / timeToMaxV;
-    float x;
+    float x = 0.0;
 
     // Acceleration phase
     if (t >= 0.0 && t <= timeToMaxV) {
@@ -39,7 +39,7 @@ float MotionProfiling::getTimeScaledParameter(float t){
         return 1.0;  // Beyond total time
     }
 
-    return x / lineLength;
+    return lineLength > 0 ? (x / lineLength) : 0.0;
 }
 
 
@@ -52,7 +52,6 @@ float MotionProfiling::getvScale(float t){
     }
 
     float a = vmax / timeToMaxV;
-    float x;
     float vScale = 0;
 
     // Acceleration phase
