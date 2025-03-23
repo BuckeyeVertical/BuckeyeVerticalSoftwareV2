@@ -35,7 +35,7 @@ float MotionProfiling::getTimeScaledParameter(float t){
         x = lineLength - 0.5 * a * (totalTime - t) * (totalTime - t);
     }
     else {
-        std::cout << "Returning 1" << std::endl;
+        // std::cout << "Returning 1" << std::endl;
         return 1.0;  // Beyond total time
     }
 
@@ -78,7 +78,7 @@ float MotionProfiling::getvScale(float t){
 
     vScale = vScale / vmax;
 
-    std::cout << "VScale in timeScaledFunction: " << vScale << std::endl;
+    // std::cout << "VScale in timeScaledFunction: " << vScale << std::endl;
 
     return vScale;
 }

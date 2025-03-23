@@ -57,6 +57,8 @@ public:
         waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 
+        currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
+
         offboard_setpoint_counter_ = 0;
 
         auto timer_callback = [this]() -> void {
@@ -196,7 +198,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
                 segment_waypoints.clear();
                 segment_waypoints.push_back(waypoints[current_waypoint]); // Current position
                 segment_waypoints.push_back(waypoints[current_waypoint + 1]); // Next waypoint
-                currTraj = std::make_shared<MotionProfiling>(1, 1, &segment_waypoints);
+                currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints);
                 target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                 current_waypoint++;
                 drone_state = FOLLOW_TRAJECTORY;
