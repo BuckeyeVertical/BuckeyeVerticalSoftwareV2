@@ -52,13 +52,10 @@ public:
         // Simple straight line trajectory
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(10.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
-        waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
-
-
-        currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &waypoints);
 
         offboard_setpoint_counter_ = 0;
 
@@ -99,10 +96,8 @@ public:
 
 private:
     // Parameters for trajectory smoothing
-    float max_velocity = 1.0;  // m/s
-    float max_acceleration = 0.5;  // m/s^2
-    float smoothing_factor = 0.15;  // Lower value = smoother but slower
-    float SIGMOID_STEEPNESS = 1.0;
+    float max_velocity = 3.0;  // m/s
+    float time_to_max = 2.0; // LOOK HERE
     State drone_state = TAKEOFF;
 
     float takeoff_altitude = 10.0;
@@ -201,10 +196,11 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
                 segment_waypoints.clear();
                 segment_waypoints.push_back(waypoints[current_waypoint]); // Current position
                 segment_waypoints.push_back(waypoints[current_waypoint + 1]); // Next waypoint
-                currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &segment_waypoints);
+                currTraj = std::make_shared<MotionProfiling>(1, 1, &segment_waypoints);
                 target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                 current_waypoint++;
                 drone_state = FOLLOW_TRAJECTORY;
+            
                 break;
 
             case FOLLOW_TRAJECTORY:
@@ -213,11 +209,16 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
                     segment_waypoints.clear();
                     segment_waypoints.push_back(waypoints[current_waypoint]);
                     segment_waypoints.push_back(waypoints[current_waypoint + 1]);
-                    currTraj = std::make_shared<MotionProfiling>(3.0, 2.5, &segment_waypoints);
+                    currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints);
                     target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                     current_waypoint++;
                 } else {
-                    drone_state = LOITER;
+                    segment_waypoints.clear();
+                    segment_waypoints.push_back(waypoints[current_waypoint + 1]);
+                    segment_waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
+                    currTraj = std::make_shared<MotionProfiling>(0.5, 0.5, &segment_waypoints);
+                    target_pos = Eigen::Vector3f(0.0, 0.0, 0.0);
+                    drone_state = LAND;
                 }
                 break;
 
@@ -258,24 +259,27 @@ void OffboardControl::publish_offboard_control_mode()
 
 void OffboardControl::publish_trajectory_setpoint(float t)
 {
+    if (currTraj == NULL) {
+        std::cerr << "Current trajectory NULL!" << std::endl;
+    }
+
     TrajectorySetpoint msg{};
     Eigen::Vector3f pos;
-    Eigen::Vector3f vel = currTraj->getVelocity();
-    std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
+    Eigen::Vector3f vel = currTraj->getVelocity(t);
+    //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
     vel = currTraj->getVelocity(t);
 
     switch (drone_state){
         case TAKEOFF:
-            std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
+            //std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = target_pos;
-            
-            msg.position = {-pos.x(), pos.y(), -pos.z()};
+            msg.yaw = -atan2(pos.y(), pos.x());
             //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case FOLLOW_TRAJECTORY:
             vel = currTraj->getVelocity(t);
-            std::cout << "In Follow Taj: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
+            //std::cout << "In Follow Taj: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = currTraj->getPosition(t, msg.yaw);
             break;
         case LOITER:
@@ -291,9 +295,13 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     //Eigen::Vector3f vel = currTraj->getVelocity();
     //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
-    msg.yaw = -atan2(pos.y(), pos.x());
+    
     msg.position = {-pos.x(), pos.y(), -pos.z()};
-    msg.velocity = {-vel.x(),vel.y(),-vel.z()};
+
+    if (drone_state != LOITER){
+        msg.velocity = {-vel.x(),vel.y(),-vel.z()};
+    }
+    
     msg.timestamp = this->get_clock()->now().nanoseconds() / 1000;
     trajectory_setpoint_publisher_->publish(msg);
 

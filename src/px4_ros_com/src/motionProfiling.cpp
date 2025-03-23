@@ -78,25 +78,12 @@ float MotionProfiling::getvScale(float t){
     }
 
     vScale = vScale / vmax;
-<<<<<<< HEAD
-    
-    return x / lineLength;
-}
-
-
-float MotionProfiling::getvScale(){
-=======
 
     std::cout << "VScale in timeScaledFunction: " << vScale << std::endl;
->>>>>>> 5599b21 (Fixes velocity feedforward)
 
     return vScale;
 }
 
-<<<<<<< HEAD
-Eigen::Vector3f MotionProfiling::getVelocity(){
-    return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
-=======
 // TODO: Add time as param
 Eigen::Vector3f MotionProfiling::getVelocity(float t){
 
@@ -114,7 +101,6 @@ Eigen::Vector3f MotionProfiling::getVelocity(float t){
 
     return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * getvScale(t)) * vmax;
 
->>>>>>> 5599b21 (Fixes velocity feedforward)
 }
 
 
@@ -165,7 +151,7 @@ float MotionProfiling::generateTrajectory(){
         std::cout << "timeToMaxV = " << timeToMaxV << ", totalTime = " << totalTime << ", vmax = " << vmax << std::endl;
     }
 
-    std::cout << "Generated trajectory with length " << trajectoryLength << " and total time " << totalTime << " seconds." << std::endl;
+    //std::cout << "Generated trajectory with length " << trajectoryLength << " and total time " << totalTime << " seconds." << std::endl;
    
     return trajectoryLength;
 }
@@ -206,7 +192,7 @@ Eigen::Vector3f MotionProfiling::getPosition(float t, float &heading) {
     // Ending waypoint of line
     Eigen::Vector3f endPoint = waypoints->at(1);
 
-    heading = atan2(endPoint.y() - startPoint.y(), endPoint.x() - startPoint.x());
+    heading = -atan2(endPoint.y() - startPoint.y(), endPoint.x() - startPoint.x());
    
     // Get position
     return startPoint + u * (endPoint - startPoint);
