@@ -14,6 +14,14 @@ def generate_launch_description():
 
     print(f"Loading config file from: {rviz_config_file}")
 
+    gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        output='screen',
+        arguments=['/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image'],
+        shell=True
+    )
+
     traj_test_node = Node(
         package='px4_ros_com',
         executable='test_trajectory',
@@ -32,5 +40,6 @@ def generate_launch_description():
     
     return LaunchDescription([
         traj_test_node,
-        rviz_node
+        rviz_node,
+        gz_bridge
     ])
