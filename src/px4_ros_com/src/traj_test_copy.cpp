@@ -2,7 +2,7 @@
 #include <px4_msgs/msg/trajectory_setpoint.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <px4_msgs/msg/vehicle_control_mode.hpp>
-#include <px4_msgs/msg/vehicle_local_position.hpp>
+#include <px4_msgs/msg/vehicle_odometry.hpp>
 #include <px4_msgs/msg/vehicle_status.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <stdint.h>
@@ -41,7 +41,7 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
 
-        vehicle_local_position_ = this->create_subscription<VehicleLocalPosition>("fmu/out/vehicle_local_position", qos,
+        vehicle_local_position_ = this->create_subscription<VehicleOdometry>("fmu/out/vehicle_odometry", qos,
                                                             std::bind(&OffboardControl::vehicle_local_position_callback, this, std::placeholders::_1));
 
         vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
@@ -128,7 +128,7 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_drone_pub;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub;
 
-    rclcpp::Subscription<VehicleLocalPosition>::SharedPtr vehicle_local_position_;
+    rclcpp::Subscription<VehicleOdometry>::SharedPtr vehicle_local_position_;
     rclcpp::Subscription<VehicleStatus>::SharedPtr vehicle_status_;
 
     std::atomic<uint64_t> timestamp_;   //!< common synced timestamped
@@ -140,7 +140,7 @@ private:
     void publish_offboard_control_mode();
     void publish_trajectory_setpoint(float t);
     void publish_vehicle_command(uint16_t command, float param1 = 0.0, float param2 = 0.0);
-    void vehicle_local_position_callback(const VehicleLocalPosition::SharedPtr msg);
+    void vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg);
     void vehicle_status_callback(const VehicleStatus::SharedPtr msg);
 
     float prevDist = 0.0;
@@ -170,15 +170,18 @@ void OffboardControl::vehicle_status_callback(const VehicleStatus::SharedPtr msg
     last_arming_state = msg->arming_state;
 }
 
-void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition::SharedPtr msg) {
+void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg) {
+    /*
     if(!msg->xy_valid || !msg->z_valid){
         std::cout << "Message invalid!" << std::endl;
         return;
     }
+    */
+    
 
-    float dx = msg->x + target_pos.x();
-    float dy = msg->y - target_pos.y();
-    float dz = msg->z + target_pos.z();
+    float dx = msg->position[0] + target_pos.x();
+    float dy = msg->position[1]  - target_pos.y();
+    float dz = msg->position[2]  + target_pos.z();
     float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
     //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
@@ -186,7 +189,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
     //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
-    visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
+    visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->position[0], msg->position[1], -msg->position[2]}, "/map");
     marker_drone_pub->publish(drone_marker);
 
     if(distance < tolerance){
