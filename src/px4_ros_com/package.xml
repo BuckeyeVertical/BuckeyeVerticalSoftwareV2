@@ -29,6 +29,8 @@
   <depend>launch_testing</depend>
   <depend>launch_testing_ros</depend>
 
+  <depend>cv_bridge</depend>
+
   <exec_depend>rosidl_default_runtime</exec_depend>
   <exec_depend>ros2launch</exec_depend>
   <exec_depend>visualization_msgs</exec_depend>

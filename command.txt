@@ -21,6 +21,8 @@ Params to change:
 UXRCE_DDS_SYNCT 0
 NAV_DLL_ACT 0
 
+Start bridge:
+ros2 run ros_gz_bridge parameter_bridge /world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image
 
 
 

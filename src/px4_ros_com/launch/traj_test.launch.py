@@ -20,6 +20,12 @@ def generate_launch_description():
         output='screen'
     )
 
+    red_cube_detector_node = Node(
+    package='px4_ros_com', 
+    executable='red_cube_detector.py',  # Ensure this matches your executable name
+    output='screen'
+)
+
     traj_test_node = Node(
         package='px4_ros_com',
         executable='traj_test_copy',
@@ -36,6 +42,13 @@ def generate_launch_description():
         output='screen'
     )
 
+    gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        output='screen',
+        arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
+        shell=True
+    )
     delay_timer = TimerAction(
         period=4.0,
         actions=[
@@ -52,5 +65,7 @@ def generate_launch_description():
     return LaunchDescription([
         #micro_ros_agent,
         traj_test_node,
-        rviz_node
+        rviz_node,
+        gz_bridge,
+        red_cube_detector_node
     ])
