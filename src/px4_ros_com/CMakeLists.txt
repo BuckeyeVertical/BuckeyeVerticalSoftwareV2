@@ -57,6 +57,14 @@ add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/r
 ament_target_dependencies(test_trajectory rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS test_trajectory DESTINATION lib/${PROJECT_NAME})
 
+# detection
+add_executable(detection_node src/detection.cpp)
+find_package(cv_bridge REQUIRED)
+ament_target_dependencies(detection_node rclcpp sensor_msgs cv_bridge OpenCV)
+install(TARGETS detection_node DESTINATION lib/${PROJECT_NAME})
+
+
+
 # offboard_control
 add_executable(offboard_control src/offboard_control.cpp)
 ament_target_dependencies(offboard_control rclcpp px4_msgs)
@@ -117,7 +125,6 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
 #   src/examples/offboard_py/offboard_control.py
-	src/red_cube_detector.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

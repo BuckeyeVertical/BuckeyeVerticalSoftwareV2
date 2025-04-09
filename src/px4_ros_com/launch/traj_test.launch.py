@@ -20,12 +20,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    red_cube_detector_node = Node(
-    package='px4_ros_com', 
-    executable='red_cube_detector.py',  # Ensure this matches your executable name
-    output='screen'
-)
-
     traj_test_node = Node(
         package='px4_ros_com',
         executable='traj_test_copy',
@@ -38,7 +32,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', rviz_config_file],  # Pass the RViz config file
+        arguments=['-d', rviz_config_file],
         output='screen'
     )
 
@@ -49,6 +43,7 @@ def generate_launch_description():
         arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
     )
+    
     delay_timer = TimerAction(
         period=4.0,
         actions=[
@@ -60,12 +55,19 @@ def generate_launch_description():
             ),
         ]
     )
-                
+    
+    # Add your modular C++ detection node
+    detection_node = Node(
+        package='px4_ros_com',       # Update if your detection node is in another package.
+        executable='detection_node', # This should match the executable name from your C++ build.
+        output='screen'
+    )
 
     return LaunchDescription([
-        #micro_ros_agent,
+        # micro_ros_agent,
         traj_test_node,
         rviz_node,
         gz_bridge,
-        red_cube_detector_node
+        detection_node,  # Added detection node here.
+ 
     ])

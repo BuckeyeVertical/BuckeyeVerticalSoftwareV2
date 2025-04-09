@@ -4,6 +4,7 @@ source /opt/ros/humble/setup.bash
 colcon build
 
 Source:
+source /opt/ros/humble/setup.bash
 source install/local_setup.bash
 
 px4 client:
