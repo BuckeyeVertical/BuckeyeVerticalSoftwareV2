@@ -191,7 +191,7 @@ Eigen::Vector3f MotionProfiling::getPosition(float t, float &heading) {
     // Ending waypoint of line
     Eigen::Vector3f endPoint = waypoints->at(1);
 
-    heading = -atan2(endPoint.y() - startPoint.y(), endPoint.x() - startPoint.x());
+    heading = atan2(endPoint.y() - startPoint.y(), endPoint.x() - startPoint.x());
    
     // Get position
     return startPoint + u * (endPoint - startPoint);
