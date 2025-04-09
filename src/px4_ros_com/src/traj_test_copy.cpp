@@ -49,12 +49,12 @@ public:
 
         prev_time = this->now();
 
-        // Simple straight line trajectory
+        // Simple box trajectory
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(5.0, 5.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(10.0, 0.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(15.0, 5.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
 
         currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
 
