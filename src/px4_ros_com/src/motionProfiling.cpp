@@ -11,7 +11,7 @@
 float MotionProfiling::getTimeScaledParameter(float t){
     // Handle edge cases
     if (vmax <= 0.0 || timeToMaxV <= 0.0 || lineLength <= 0.0) {
-        std::cout << "Returning 0" << std::endl;
+        // std::cout << "Returning 0" << std::endl;
         return 0.0;
     }
 
@@ -47,7 +47,7 @@ float MotionProfiling::getvScale(float t){
 
     // Handle edge cases
     if (vmax <= 0.0 || timeToMaxV <= 0.0 || lineLength <= 0.0) {
-        std::cout << "Returning 0" << std::endl;
+        // std::cout << "Returning 0" << std::endl;
         return 0.0;
     }
 
@@ -72,7 +72,7 @@ float MotionProfiling::getvScale(float t){
 
     }
     else {
-        std::cout << "Returning 1" << std::endl;
+        // std::cout << "Returning 1" << std::endl;
         return 1.0;  // Beyond total time
     }
 

@@ -26,6 +26,7 @@ find_package(px4_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(oa_msgs REQUIRED PATHS ${CMAKE_PREFIX_PATH}/share/oa_msgs)
 
 #################
 # Setup targets #
@@ -49,7 +50,7 @@ install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
 
 # traj_test_copy
 add_executable(traj_test_copy src/traj_test_copy.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
-ament_target_dependencies(traj_test_copy rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
+ament_target_dependencies(traj_test_copy rclcpp px4_msgs oa_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS traj_test_copy DESTINATION lib/${PROJECT_NAME})
 
 # Build your test executable
@@ -59,8 +60,31 @@ install(TARGETS test_trajectory DESTINATION lib/${PROJECT_NAME})
 
 # offboard_control
 add_executable(offboard_control src/offboard_control.cpp)
-ament_target_dependencies(offboard_control rclcpp px4_msgs)
+ament_target_dependencies(offboard_control rclcpp px4_msgs oa_msgs)
 install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
+
+# obstacle avoidance
+add_executable(obstacle_avoidance
+  src/obstacle_avoidance.cpp
+  src/motionProfiling.cpp
+  src/rviz_utils.cpp
+  src/lib/frame_transforms.cpp
+)
+
+ament_target_dependencies(obstacle_avoidance
+  rclcpp
+  px4_msgs
+  oa_msgs
+  geometry_msgs
+  visualization_msgs
+  Eigen3
+)
+
+install(TARGETS
+  obstacle_avoidance
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 
 ############
 # Install ##
@@ -117,6 +141,8 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
 #   src/examples/offboard_py/offboard_control.py
+  src/clustering.py
+  src/avoidance.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

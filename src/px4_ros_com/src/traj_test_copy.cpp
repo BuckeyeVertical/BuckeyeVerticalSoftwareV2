@@ -84,6 +84,7 @@ public:
             currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
             publish_offboard_control_mode();
             publish_trajectory_setpoint(elapsed_time);
+            std::cout << "TIMER" << std::endl;
 
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
@@ -181,15 +182,16 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     float dz = msg->z + target_pos.z();
     float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
-    //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
-    //std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
-    //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
-    //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
+    // std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
+    // std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
+    // std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
+    // std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
     visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
     marker_drone_pub->publish(drone_marker);
 
     if(distance < tolerance){
+        RCLCPP_INFO(this->get_logger(), "Current vehicle position - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
         std::cout << "Reached position setpoint with distance " << distance << std::endl;
         reset_time = true;
         switch (drone_state){
