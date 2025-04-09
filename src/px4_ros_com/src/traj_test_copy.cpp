@@ -50,12 +50,11 @@ public:
         prev_time = this->now();
 
         // Simple straight line trajectory
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
-        waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(5.0, 5.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(10.0, 0.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(15.0, 5.0, 10.0));
 
         currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
 
@@ -267,6 +266,8 @@ void OffboardControl::publish_trajectory_setpoint(float t)
 
     TrajectorySetpoint msg{};
     Eigen::Vector3f pos;
+    Eigen::Vector3f current_pos;
+    Eigen::Vector3f delta;
     Eigen::Vector3f vel = currTraj->getVelocity(t);
     //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
@@ -276,13 +277,16 @@ void OffboardControl::publish_trajectory_setpoint(float t)
         case TAKEOFF:
             //std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = target_pos;
-            msg.yaw = -atan2(pos.y(), pos.x());
+            msg.yaw = atan2(pos.y(), pos.x());
             //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case FOLLOW_TRAJECTORY:
             vel = currTraj->getVelocity(t);
             //std::cout << "In Follow Taj: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = currTraj->getPosition(t, msg.yaw);
+            //pos = current_pos;
+            // delta = target_pos - current_pos;
+            // msg.yaw = atan2(delta.y(), delta.x());
             break;
         case LOITER:
         case LAND:
