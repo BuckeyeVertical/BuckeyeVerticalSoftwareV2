@@ -36,9 +36,12 @@ class LidarTracker(Node):
     def lidar_callback(self, msg):
         """Callback function for LiDAR data."""
         # Convert PointCloud2 message to numpy array
-        self.get_logger().info("LiDAR callback triggered!")
+        # self.get_logger().info("LiDAR callback triggered!")
         lidar_data = self.pointcloud2_to_array(msg)
-        self.get_logger().info(f"Raw data shape: {lidar_data.shape}")
+        # self.get_logger().info(f"Raw data shape: {lidar_data.shape}")
+        if lidar_data.shape[0] == 0:
+            # self.get_logger().warn("No points in LiDAR data — skipping clustering.")
+            return
         # First apply DBSCAN clustering to all points
         dbscan = DBSCAN(eps=DBSCAN_EPS, min_samples=DBSCAN_MIN_SAMPLES)
         labels = dbscan.fit_predict(lidar_data)
@@ -53,11 +56,12 @@ class LidarTracker(Node):
             centroid_distance = np.linalg.norm(centroid)
             if centroid_distance > MINIMUM_KEEP_OUT_DISTANCE:
                 valid_clusters.append(cluster)
-                self.get_logger().info(f"Keeping cluster with centroid at {centroid} (distance: {centroid_distance:.2f}m)")
+                # self.get_logger().info(f"Keeping cluster with centroid at {centroid} (distance: {centroid_distance:.2f}m)")
             else:
-                self.get_logger().info(f"Ignoring cluster with centroid at {centroid} (distance: {centroid_distance:.2f}m)")
+                pass
+                # self.get_logger().info(f"Ignoring cluster with centroid at {centroid} (distance: {centroid_distance:.2f}m)")
         if len(valid_clusters) == 0:
-            self.get_logger().info("No valid clusters beyond keep-out distance")
+            # self.get_logger().info("No valid clusters beyond keep-out distance")
             self.tracked_objects = []  # Clear tracked objects if nothing is detected
             return
         # Track objects across frames
@@ -65,7 +69,7 @@ class LidarTracker(Node):
         # Find and update the nearest object's state
         self.update_nearest_obstacle_state()
         # Log tracked objects
-        self.get_logger().info(f"Tracked objects: {len(self.tracked_objects)}")
+        # self.get_logger().info(f"Tracked objects: {len(self.tracked_objects)}")
         for obj in self.tracked_objects:
             self.get_logger().info(
                 f"Object ID: {obj.id}, Position: {obj.position}, Velocity: {obj.velocity}"
@@ -123,7 +127,7 @@ class LidarTracker(Node):
             self.nearest_obstacle_state.x_io = [0.0, 0.0, 0.0]
             self.nearest_obstacle_state.v_io = [0.0, 0.0, 0.0]
             self.nearest_obstacle_state_publisher.publish(self.nearest_obstacle_state)
-            self.get_logger().info("No tracked objects beyond keep-out distance")
+            # self.get_logger().info("No tracked objects beyond keep-out distance")
             return
         # Find the nearest object beyond the keep-out distance
         nearest_object = min(self.tracked_objects, key=lambda obj: np.linalg.norm(obj.position))

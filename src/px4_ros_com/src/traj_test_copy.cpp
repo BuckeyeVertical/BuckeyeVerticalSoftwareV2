@@ -52,7 +52,7 @@ public:
         // Simple straight line trajectory
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        // waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
         waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));

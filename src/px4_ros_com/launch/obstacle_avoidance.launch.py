@@ -65,7 +65,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         #micro_ros_agent,
-        rviz_node,
+        # rviz_node,
         obst_av_node,
         clustering,
         avoidance,

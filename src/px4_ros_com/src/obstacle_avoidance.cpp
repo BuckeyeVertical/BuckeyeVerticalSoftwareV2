@@ -61,13 +61,23 @@ public:
             std::bind(&OffboardControl::collision_data_callback, this, std::placeholders::_1)
         );
 
+        // // Simple straight line trajectory
+        // waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
+        // waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
+        // waypoints.push_back(Eigen::Vector3f(70.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        // waypoints.push_back(Eigen::Vector3f(70.0, 50.0, 10.0));
+        // waypoints.push_back(Eigen::Vector3f(0.0, 50.0, 10.0));
+        // waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
+
         // Simple straight line trajectory
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(70.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
-        waypoints.push_back(Eigen::Vector3f(70.0, 50.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(0.0, 50.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 25.0));    // Go up to 10m
+        // waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        waypoints.push_back(Eigen::Vector3f(25.0, 0.0, 25.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 25.0));
+        waypoints.push_back(Eigen::Vector3f(25.0, 0.0, 25.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 25.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
 
         currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
 
@@ -215,12 +225,12 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     visualization_msgs::msg::Marker obstacle_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{35.5,0,10}, "/map");
     marker_obstacle_pub->publish(obstacle_marker);
 
-    // if (drone_state == AVOID) {
-    //     RCLCPP_INFO(this->get_logger(), "AVOID - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
-    // } else
-    // {
-    //     RCLCPP_INFO(this->get_logger(), "FOLLOW - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
-    // }
+    if (drone_state == AVOID) {
+        RCLCPP_INFO(this->get_logger(), "AVOID - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
+    } else
+    {
+        RCLCPP_INFO(this->get_logger(), "FOLLOW - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
+    }
     
 
     if(distance < tolerance){
@@ -275,14 +285,14 @@ void OffboardControl::collision_data_callback(const oa_msgs::msg::CollisionData:
         if (drone_state != AVOID){
             prev_drone_state = drone_state;
             drone_state = AVOID;
-            RCLCPP_INFO(this->get_logger(), "AVOID");
+            // RCLCPP_INFO(this->get_logger(), "AVOID");
         }
         
         override_velocity = Eigen::Vector3f(msg->v_avoid.data());
     } else {
         if (drone_state == AVOID) {
             if (msg->los_clear){
-                RCLCPP_INFO(this->get_logger(), "FOLLOW");
+                // RCLCPP_INFO(this->get_logger(), "FOLLOW");
                 drone_state = prev_drone_state;
                 override_velocity = Eigen::Vector3f(0.0, 0.0, 0.0);
             } 
