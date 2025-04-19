@@ -48,6 +48,7 @@ class Avoidance(Node):
         self.vehicle_attitude = VehicleAttitude()
         self.nearest_obstacle_state = NearestObstacleState()
         self.collision_data = CollisionData()
+        self.trajectory_setpoint = TrajectorySetpoint()
         self.V_avoid = np.array([])
         
         # create timer 
@@ -71,6 +72,7 @@ class Avoidance(Node):
     def trajectory_setpoint_callback(self, trajectory_setpoint):
         self.trajectory_setpoint = trajectory_setpoint
         self.next_pos_sp = trajectory_setpoint.position
+        # self.get_logger().info(f'{self.next_pos_sp}')
         
     def offboard_control_mode_callback(self, offboard_control_mode):
         self.offboard_control_mode = offboard_control_mode
@@ -110,29 +112,39 @@ class Avoidance(Node):
         collision_imminent = False
         LOS_clear = True
         V_avoid = np.array([0,0,0])
+        # self.get_logger().info(f'{DCM}')
         
         if (np.linalg.norm(X_io) != 0 and
             np.linalg.norm(X_io) < 15 and 
             all(item is not None and (not isinstance(item, float) or not math.isnan(item)) for item in X_io) and
             all(item is not None and (not isinstance(item, float) or not math.isnan(item)) for item in V_io)): 
             
-            
+           
             Vo_mag = np.linalg.norm(Vo)
-
+            r_pz = 2*r_pz
+            # self.get_logger().info(f'{r_pz}')
+            # self.get_logger().info(f'PRE DCM: X_io: {X_io}, V_io: {V_io} V_io_mag: {np.linalg.norm(V_io)}')
+            # self.get_logger().info(f'Xo: {Xo} Vo: {Vo}')
+            # self.get_logger().info(f'{DCM}')
             # Apply the DCM to X_io and V_io in homogeneous coordinates
             X_io = np.matmul(DCM, X_io)
-            V_io = np.matmul(DCM, V_io)
+            # X_io = [-1*X_io[0], X_io[1], X_io[2]]
+            # V_io = np.matmul(DCM, V_io)
+            V_io = -1*Vo
+            # self.get_logger().info(f'POST DCM: X_io: {X_io}, V_io: {V_io}')
             
             Vi = V_io + Vo
-            
+            # self.get_logger().info(f'PRE DCM: X_io: {X_io}, V_io: {V_io} V_io_mag: {np.linalg.norm(V_io)}')
+
             
             V_rel = -1*V_io
+            
             V_rel_mag = np.linalg.norm(V_rel)
             
             # here "oi" is copied from the article and means "o to i"
             D_oi = X_io
             d_oi = np.linalg.norm(D_oi)
-            print(d_oi)
+            # print(d_oi)
             
             if d_oi < r_pz:
                 r_pz = 0.95 * d_oi
@@ -163,13 +175,16 @@ class Avoidance(Node):
             V_rel_cone_z = V_rel_cone[2]
             if V_rel_cone_x > 0 and (1/V_rel_cone_x)*np.sqrt(V_rel_cone_y**2 + V_rel_cone_z**2) < (r_vo/d_vo):
                 collision_imminent = True
-                theta_yz = np.atan2(V_rel_cone_z, V_rel_cone_y)
+                # self.get_logger().info('AVOID AVOID AVOID AVOID')
+                theta_yz = np.arctan2(V_rel_cone_z, V_rel_cone_y)
                 cone_r_local = V_rel_cone_x*(r_vo/d_vo)
                 V_rel_cone_z_new = cone_r_local * np.sin(theta_yz)
                 V_rel_cone_y_new = cone_r_local * np.cos(theta_yz)
                 V_rel_cone_new = np.array([V_rel_cone_x, V_rel_cone_y_new, V_rel_cone_z_new])
                 V_rel_new = np.linalg.solve(R,V_rel_cone_new)
                 V_avoid = V_rel_new + Vi
+                self.get_logger().info(f'{V_avoid}')
+               
                
             # NEXT POSITION SETPOINT LINE OF SIGHT CALCULATIONS
             if  all(item is not None and (not isinstance(item, float) or not math.isnan(item)) for item in self.next_pos_sp):
@@ -181,6 +196,9 @@ class Avoidance(Node):
                 next_pos_rel_cone_z = next_pos_rel_cone[2]
                 if next_pos_rel_cone_x > 0 and (1/next_pos_rel_cone_x)*np.sqrt(next_pos_rel_cone_y**2 + next_pos_rel_cone_z**2) < (r_vo/d_vo):
                     LOS_clear = False
+                    self.get_logger().info('NOT CLEAR')
+                else:
+                    self.get_logger().info('CLEAR')
             
 
         return collision_imminent, V_avoid, LOS_clear
@@ -227,13 +245,13 @@ class Avoidance(Node):
         #     self.get_logget().info('-------')
         
 def main(args=None) -> None:
-    print('Starting avoidance node...')
+    # print('Starting avoidance node...')
     rclpy.init(args=args)
     offboard_control = Avoidance()
     rclpy.spin(offboard_control)
     offboard_control.destroy_node()
     rclpy.shutdown()
-    print('AVOIDANCE QUIT')
+    # print('AVOIDANCE QUIT')
 
 
 if __name__ == '__main__':

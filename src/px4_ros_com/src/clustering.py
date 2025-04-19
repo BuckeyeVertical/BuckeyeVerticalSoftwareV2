@@ -70,10 +70,11 @@ class LidarTracker(Node):
         self.update_nearest_obstacle_state()
         # Log tracked objects
         # self.get_logger().info(f"Tracked objects: {len(self.tracked_objects)}")
-        for obj in self.tracked_objects:
-            self.get_logger().info(
-                f"Object ID: {obj.id}, Position: {obj.position}, Velocity: {obj.velocity}"
-            )
+        # for obj in self.tracked_objects:
+            # self.get_logger().info(
+            #     f"Object ID: {obj.id}, Position: {obj.position}, Velocity: {obj.velocity}"
+            # )
+            
         # Increment time (simulated)
         self.current_time += 0.1
     def pointcloud2_to_array(self, msg):
@@ -121,6 +122,7 @@ class LidarTracker(Node):
         return current_tracked_objects
     def update_nearest_obstacle_state(self):
         """Update the nearest obstacle state."""
+        
         if not self.tracked_objects:
             # If no tracked objects, publish a default state or don't publish
             self.nearest_obstacle_state.r_pz = 0.0
@@ -132,11 +134,11 @@ class LidarTracker(Node):
         # Find the nearest object beyond the keep-out distance
         nearest_object = min(self.tracked_objects, key=lambda obj: np.linalg.norm(obj.position))
         # Update the nearest obstacle state
-        self.nearest_obstacle_state.r_pz = float(nearest_object.position[2])
+        self.nearest_obstacle_state.r_pz = abs(float(nearest_object.position[2]))
         self.nearest_obstacle_state.x_io = [float(val) for val in nearest_object.position.tolist()]
         self.nearest_obstacle_state.v_io = [float(val) for val in nearest_object.velocity.tolist()]
         self.nearest_obstacle_state_publisher.publish(self.nearest_obstacle_state)
-        self.get_logger().info(f"Nearest Obstacle State - r_pz: {self.nearest_obstacle_state.r_pz}, x_io: {self.nearest_obstacle_state.x_io}, v_io: {self.nearest_obstacle_state.v_io}")
+        # self.get_logger().info(f"Nearest Obstacle State - r_pz: {self.nearest_obstacle_state.r_pz}, x_io: {self.nearest_obstacle_state.x_io}, v_io: {self.nearest_obstacle_state.v_io}")
 class TrackedObject:
     def __init__(self, initial_cluster_points, object_id):
         self.id = object_id

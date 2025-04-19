@@ -31,6 +31,7 @@ How to get it to work every time:
 terminal 1:
 
 make px4_sitl gz_x500
+make px4_sitl gazebo-classic_iris
 
 terminal 2:
 MicroXRCEAgent udp4 -p 8888
@@ -44,6 +45,9 @@ colcon build
 
 source install/local_setup.bash
 ros2 launch px4_ros_com traj_test.launch.py
+
+terminal 4:
+ros2 run tf2_ros static_transform_publisher 0 0 0.1 0 0 0 base_link rp_lidar_link
 
 
 if you just want to just run it again, just run the last one
