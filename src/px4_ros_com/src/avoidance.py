@@ -72,7 +72,7 @@ class Avoidance(Node):
     def trajectory_setpoint_callback(self, trajectory_setpoint):
         self.trajectory_setpoint = trajectory_setpoint
         self.next_pos_sp = trajectory_setpoint.position
-        # self.get_logger().info(f'{self.next_pos_sp}')
+        
         
     def offboard_control_mode_callback(self, offboard_control_mode):
         self.offboard_control_mode = offboard_control_mode
@@ -121,15 +121,16 @@ class Avoidance(Node):
             
            
             Vo_mag = np.linalg.norm(Vo)
-            r_pz = 2*r_pz
-            # self.get_logger().info(f'{r_pz}')
+            r_pz = 4*r_pz
+            # r_pz = 5
             # self.get_logger().info(f'PRE DCM: X_io: {X_io}, V_io: {V_io} V_io_mag: {np.linalg.norm(V_io)}')
             # self.get_logger().info(f'Xo: {Xo} Vo: {Vo}')
             # self.get_logger().info(f'{DCM}')
+            # self.get_logger().info(f'NEXT POS: {self.next_pos_sp}')
             # Apply the DCM to X_io and V_io in homogeneous coordinates
             X_io = np.matmul(DCM, X_io)
-            # X_io = [-1*X_io[0], X_io[1], X_io[2]]
             # V_io = np.matmul(DCM, V_io)
+            Vo = np.array(Vo)
             V_io = -1*Vo
             # self.get_logger().info(f'POST DCM: X_io: {X_io}, V_io: {V_io}')
             
@@ -183,7 +184,8 @@ class Avoidance(Node):
                 V_rel_cone_new = np.array([V_rel_cone_x, V_rel_cone_y_new, V_rel_cone_z_new])
                 V_rel_new = np.linalg.solve(R,V_rel_cone_new)
                 V_avoid = V_rel_new + Vi
-                self.get_logger().info(f'{V_avoid}')
+                self.get_logger().info(f'r_pz {r_pz}')
+                self.get_logger().info(f'X_io {np.linalg.norm(X_io)}')
                
                
             # NEXT POSITION SETPOINT LINE OF SIGHT CALCULATIONS
@@ -196,9 +198,9 @@ class Avoidance(Node):
                 next_pos_rel_cone_z = next_pos_rel_cone[2]
                 if next_pos_rel_cone_x > 0 and (1/next_pos_rel_cone_x)*np.sqrt(next_pos_rel_cone_y**2 + next_pos_rel_cone_z**2) < (r_vo/d_vo):
                     LOS_clear = False
-                    self.get_logger().info('NOT CLEAR')
-                else:
-                    self.get_logger().info('CLEAR')
+                #     self.get_logger().info('NOT CLEAR')
+                # else:
+                #     self.get_logger().info('CLEAR')
             
 
         return collision_imminent, V_avoid, LOS_clear

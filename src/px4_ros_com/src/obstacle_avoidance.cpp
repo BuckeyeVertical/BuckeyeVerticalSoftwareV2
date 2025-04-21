@@ -227,11 +227,10 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
 
     // if (drone_state == AVOID) {
     //     RCLCPP_INFO(this->get_logger(), "AVOID -- x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
-    // }
-    // // } else
+    // } else
     // {
 
-    //     // RCLCPP_INFO(this->get_logger(), "FOLLOW - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
+    //     RCLCPP_INFO(this->get_logger(), "FOLLOW - x: %.2f y: %.2f z: %.2f", msg->x, msg->y, msg->z);
     // }
     
 
@@ -363,8 +362,8 @@ void OffboardControl::publish_trajectory_setpoint(float t)
             vel = override_velocity;
             // pos = Eigen::Vector3f{0.0,0.0,0.0};
             // msg.yaw = atan2(vel.y(), vel.x());
+            pos = currTraj->getPosition(t, msg.yaw);
             msg.yaw = -atan2(pos.y(), pos.x()) + 3.1415;
-            // pos = currTraj->getPosition(t, msg.yaw);
             break;
         case LOITER:
         case LAND:
