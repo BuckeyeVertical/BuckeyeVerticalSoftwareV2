@@ -62,12 +62,19 @@ def generate_launch_description():
         executable='detection_node', # This should match the executable name from your C++ build.
         output='screen'
     )
+    
+    python_node = Node(
+        package='px4_ros_com',
+        executable='detection.py',   # matches the script name
+        output='screen'
+    )
+
 
     return LaunchDescription([
         # micro_ros_agent,
         traj_test_node,
         rviz_node,
         gz_bridge,
-        detection_node,  # Added detection node here.
+        python_node,  # Added detection node here.
  
     ])
