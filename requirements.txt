@@ -46,7 +46,6 @@ lifecycle-msgs==1.2.1
 logging-demo==0.20.5
 map-msgs==2.1.0
 message-filters==4.3.5
-my-test-package==1.0
 nav-msgs==4.2.4
 numpy==1.26.4
 opencv-python==4.11.0.86
