@@ -40,7 +40,7 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         output='screen',
-        arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
+        arguments=['/camera@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
     )
     
