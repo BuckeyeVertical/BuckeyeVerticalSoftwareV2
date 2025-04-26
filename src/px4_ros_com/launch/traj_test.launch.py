@@ -14,12 +14,14 @@ def generate_launch_description():
 
     print(f"Loading config file from: {rviz_config_file}")
 
+    # MicroXRCEAgent (Optional)
     micro_ros_agent = ExecuteProcess(
         cmd=['xterm', '-e', 'MicroXRCEAgent', 'udp4', '-p', '8888', '-v'],
         shell=True,
         output='screen'
     )
 
+    # Trajectory test node (traj_test_copy)
     traj_test_node = Node(
         package='px4_ros_com',
         executable='traj_test_copy',
@@ -27,7 +29,7 @@ def generate_launch_description():
         shell=True,
     )
 
-    # Node to start RViz
+    # RViz node
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -36,6 +38,7 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Gazebo bridge for camera images
     gz_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
@@ -44,6 +47,7 @@ def generate_launch_description():
         shell=True
     )
     
+    # Delayed start of traj_test
     delay_timer = TimerAction(
         period=4.0,
         actions=[
@@ -56,25 +60,17 @@ def generate_launch_description():
         ]
     )
     
-    # Add your modular C++ detection node
-    detection_node = Node(
-        package='px4_ros_com',       # Update if your detection node is in another package.
-        executable='detection_node', # This should match the executable name from your C++ build.
-        output='screen'
-    )
-    
-    python_node = Node(
+    # Image Stitching Node (PYTHON VERSION)
+    image_stitching_node = Node(
         package='px4_ros_com',
-        executable='detection.py',   # matches the script name
+        executable='image_stitching_node.py',  # <<-- Python script name
         output='screen'
     )
-
 
     return LaunchDescription([
-        # micro_ros_agent,
+        # micro_ros_agent,  # Uncomment if you want to launch the Micro XRCE Agent automatically
         traj_test_node,
         rviz_node,
         gz_bridge,
-        python_node,  # Added detection node here.
- 
+        image_stitching_node,  # <-- Launch the Python image stitcher
     ])
