@@ -26,13 +26,14 @@ find_package(px4_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rclpy REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 #################
 # Setup targets #
 #################
 
 include_directories(include)
-
 
 # Add frame_transforms lib
 add_library(frame_transforms SHARED src/lib/frame_transforms.cpp)
@@ -52,23 +53,25 @@ add_executable(traj_test_copy src/traj_test_copy.cpp src/motionProfiling.cpp src
 ament_target_dependencies(traj_test_copy rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS traj_test_copy DESTINATION lib/${PROJECT_NAME})
 
-# Build your test executable
+# test_trajectory
 add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
 ament_target_dependencies(test_trajectory rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
 install(TARGETS test_trajectory DESTINATION lib/${PROJECT_NAME})
 
-# detection
+# detection_node (C++)
 add_executable(detection_node src/detection.cpp)
-find_package(cv_bridge REQUIRED)
 ament_target_dependencies(detection_node rclcpp sensor_msgs cv_bridge OpenCV)
 install(TARGETS detection_node DESTINATION lib/${PROJECT_NAME})
-
-
 
 # offboard_control
 add_executable(offboard_control src/offboard_control.cpp)
 ament_target_dependencies(offboard_control rclcpp px4_msgs)
 install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
+
+# image_stitching_node (C++) (Optional — you can remove if only using Python)
+add_executable(image_stitching_node src/image_stitching_node.cpp)
+ament_target_dependencies(image_stitching_node rclcpp sensor_msgs cv_bridge OpenCV)
+install(TARGETS image_stitching_node DESTINATION lib/${PROJECT_NAME})
 
 ############
 # Install ##
@@ -78,27 +81,30 @@ install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
 ament_export_dependencies(ament_cmake rclcpp rosidl_default_runtime eigen3_cmake_module Eigen3 px4_msgs geometry_msgs sensor_msgs)
 
 ament_export_targets(export_frame_transforms HAS_LIBRARY_TARGET)
-
 ament_export_include_directories(include)
 ament_export_libraries(frame_transforms)
 
 # Install header files
 install(DIRECTORY include/${PROJECT_NAME}/ DESTINATION include/${PROJECT_NAME})
 
-install(TARGETS frame_transforms
-	EXPORT export_frame_transforms
-	ARCHIVE DESTINATION lib
-	LIBRARY DESTINATION lib
-	RUNTIME DESTINATION bin
-	INCLUDES DESTINATION include
-)
-
-# Install launch files.
+# Install launch files
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 # Install tests
 install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
 
+############
+# Python Nodes
+############
+
+ament_python_install_package(${PROJECT_NAME})
+
+# Install Python executables
+install(PROGRAMS
+	src/detection.py
+	src/image_stitching_node.py  # <<<<<< Added your new Python ROS 2 node
+	DESTINATION lib/${PROJECT_NAME}
+)
 
 ############
 # Testing ##
@@ -106,27 +112,7 @@ install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
 
 if(BUILD_TESTING)
 	find_package(ament_lint_auto REQUIRED)
-	# the following line skips the linter which checks for copyrights
-	# uncomment the line when a copyright and license is not present in all source files
-	#set(ament_cmake_copyright_FOUND TRUE)
-	# the following line skips cpplint (only works in a git repo)
-	# uncomment the line when this package is not in a git repo
-	#set(ament_cmake_cpplint_FOUND TRUE)
 	ament_lint_auto_find_test_dependencies()
 endif()
-
-# ###########
-# # Python ##
-# ###########
-
-# # Install Python modules
-ament_python_install_package(${PROJECT_NAME})
-
-# Install Python executables
-install(PROGRAMS
-#   src/examples/offboard_py/offboard_control.py
-	src/detection.py
-  DESTINATION lib/${PROJECT_NAME}
-)
 
 ament_package()
