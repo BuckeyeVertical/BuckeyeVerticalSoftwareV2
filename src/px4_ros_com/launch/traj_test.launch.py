@@ -47,10 +47,30 @@ def generate_launch_description():
         shell=True
     )
     
+    
+    # Delayed start of traj_test
+    delay_timer = TimerAction(
+        period=4.0,
+        actions=[
+            Node(
+                package='px4_ros_com',
+                executable='traj_test',
+                output='screen',
+                shell=True,
+            ),
+        ]
+    )
+    
     # Image Stitching Node (PYTHON VERSION)
     image_stitching_node = Node(
         package='px4_ros_com',
         executable='image_stitching_node.py',  # <<-- Python script name
+        output='screen'
+    )
+    
+    detection = Node(
+        package='px4_ros_com',
+        executable='detection.py',  # <<-- Python script name
         output='screen'
     )
 
@@ -59,5 +79,7 @@ def generate_launch_description():
         traj_test_node,
         rviz_node,
         gz_bridge,
-        image_stitching_node,  # <-- Launch the Python image stitcher
+        image_stitching_node,
+        detection
+        # <-- Launch the Python image stitcher
     ])
