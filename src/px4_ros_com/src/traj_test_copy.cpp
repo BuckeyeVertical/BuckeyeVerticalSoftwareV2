@@ -57,7 +57,7 @@ public:
         waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 
-        currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
+        currTraj = std::make_shared<MotionProfiling>(1, 1, &waypoints);
 
         offboard_setpoint_counter_ = 0;
 
@@ -264,7 +264,7 @@ void OffboardControl::publish_offboard_control_mode()
 
 void OffboardControl::publish_trajectory_setpoint(float t)
 {
-    if (currTraj == NULL) {
+    if (currTraj == nullptr) {
         std::cerr << "Current trajectory NULL!" << std::endl;
     }
 
