@@ -24,7 +24,7 @@ def generate_launch_description():
     # Trajectory test node (traj_test_copy)
     traj_test_node = Node(
         package='px4_ros_com',
-        executable='traj_test_copy',
+        executable='traj_test',
         output='screen',
         shell=True,
     )
@@ -45,19 +45,6 @@ def generate_launch_description():
         output='screen',
         arguments=['/camera@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
-    )
-    
-    # Delayed start of traj_test
-    delay_timer = TimerAction(
-        period=4.0,
-        actions=[
-            Node(
-                package='px4_ros_com',
-                executable='traj_test',
-                output='screen',
-                shell=True,
-            ),
-        ]
     )
     
     # Image Stitching Node (PYTHON VERSION)
