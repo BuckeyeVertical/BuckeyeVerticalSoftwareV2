@@ -4,10 +4,11 @@ source /opt/ros/humble/setup.bash
 colcon build
 
 Source:
+source /opt/ros/humble/setup.bash
 source install/local_setup.bash
 
 px4 client:
-make px4_sitl gz_x500
+make px4_sitl gz_x500_mono_cam_down
 PX4_GZ_SIM_RENDER_ENGINE=ogre make px4_sitl gz_x500
 HEADLESS=1 make px4_sitl gz_x500
 
@@ -15,12 +16,14 @@ starting agent:
 MicroXRCEAgent udp4 -p 8888
 
 Spinning up the roslaunch:
-ros2 launch px4_ros_com traj_test.launch.py
+1   
 
 Params to change:
 UXRCE_DDS_SYNCT 0
 NAV_DLL_ACT 0
 
+Start bridge:
+ros2 run ros_gz_bridge parameter_bridge /world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image
 
 
 

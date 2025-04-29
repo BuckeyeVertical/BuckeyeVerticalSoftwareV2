@@ -18,7 +18,7 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         output='screen',
-        arguments=['/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image'],
+        arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
     )
 
@@ -40,6 +40,5 @@ def generate_launch_description():
     
     return LaunchDescription([
         traj_test_node,
-        rviz_node,
-        gz_bridge
+        rviz_node
     ])

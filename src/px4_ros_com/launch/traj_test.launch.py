@@ -14,43 +14,50 @@ def generate_launch_description():
 
     print(f"Loading config file from: {rviz_config_file}")
 
+    # MicroXRCEAgent (Optional)
     micro_ros_agent = ExecuteProcess(
         cmd=['xterm', '-e', 'MicroXRCEAgent', 'udp4', '-p', '8888', '-v'],
         shell=True,
         output='screen'
     )
 
+    # Trajectory test node (traj_test_copy)
     traj_test_node = Node(
         package='px4_ros_com',
-        executable='traj_test_copy',
+        executable='traj_test',
         output='screen',
         shell=True,
     )
 
-    # Node to start RViz
+    # RViz node
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', rviz_config_file],  # Pass the RViz config file
+        arguments=['-d', rviz_config_file],
         output='screen'
     )
 
-    delay_timer = TimerAction(
-        period=4.0,
-        actions=[
-            Node(
-                package='px4_ros_com',
-                executable='traj_test',
-                output='screen',
-                shell=True,
-            ),
-        ]
+    # Gazebo bridge for camera images
+    gz_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        output='screen',
+        arguments=['/camera@sensor_msgs/msg/Image@gz.msgs.Image'],
+        shell=True
     )
-                
+    
+    # Image Stitching Node (PYTHON VERSION)
+    image_stitching_node = Node(
+        package='px4_ros_com',
+        executable='image_stitching_node.py',  # <<-- Python script name
+        output='screen'
+    )
 
     return LaunchDescription([
-        #micro_ros_agent,
+        # micro_ros_agent,  # Uncomment if you want to launch the Micro XRCE Agent automatically
         traj_test_node,
-        rviz_node
+        rviz_node,
+        gz_bridge,
+        image_stitching_node,  # <-- Launch the Python image stitcher
     ])
