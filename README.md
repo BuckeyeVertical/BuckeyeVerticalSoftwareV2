@@ -39,6 +39,6 @@ docker exec -it dreamer_container /bin/bash
 
 To check pixhawk <-> raspi connection run this (inside container):
 ```
-MicroXRCEAgent serial --dev $PORT -b 921600
+MicroXRCEAgent serial --dev /dev/ttyUSB0 -b 921600
 ```
 If the bridge is working, then all the topics should be created.
