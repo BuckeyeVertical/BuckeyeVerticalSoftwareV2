@@ -78,7 +78,7 @@ def generate_launch_description():
         # micro_ros_agent,  # Uncomment if you want to launch the Micro XRCE Agent automatically
         traj_test_node,
         rviz_node,
-        gz_bridge,
+        # gz_bridge,
         image_stitching_node,
         detection
         # <-- Launch the Python image stitcher
