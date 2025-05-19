@@ -2,7 +2,7 @@
 #include <px4_msgs/msg/trajectory_setpoint.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <px4_msgs/msg/vehicle_control_mode.hpp>
-#include <px4_msgs/msg/vehicle_local_position.hpp>
+#include <px4_msgs/msg/vehicle_odometry.hpp>
 #include <px4_msgs/msg/vehicle_status.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <stdint.h>
@@ -41,7 +41,7 @@ public:
         rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
         auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
 
-        vehicle_local_position_ = this->create_subscription<VehicleLocalPosition>("fmu/out/vehicle_local_position", qos,
+        vehicle_local_position_ = this->create_subscription<VehicleOdometry>("fmu/out/vehicle_odometry", qos,
                                                             std::bind(&OffboardControl::vehicle_local_position_callback, this, std::placeholders::_1));
 
         vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
@@ -49,14 +49,15 @@ public:
 
         prev_time = this->now();
 
-        // Simple box trajectory
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
+        // Simple straight line trajectory
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
+        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
+        waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(10.0, 0.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(10.0, 10.0, 10.0));
-        waypoints.push_back(Eigen::Vector3f(0.0, 10.0, 10.0));
 
-        currTraj = std::make_shared<MotionProfiling>(1,1,&waypoints);
+        currTraj = std::make_shared<MotionProfiling>(1, 1, &waypoints);
 
         offboard_setpoint_counter_ = 0;
 
@@ -127,7 +128,7 @@ private:
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_drone_pub;
     rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_heading_pub;
 
-    rclcpp::Subscription<VehicleLocalPosition>::SharedPtr vehicle_local_position_;
+    rclcpp::Subscription<VehicleOdometry>::SharedPtr vehicle_local_position_;
     rclcpp::Subscription<VehicleStatus>::SharedPtr vehicle_status_;
 
     std::atomic<uint64_t> timestamp_;   //!< common synced timestamped
@@ -139,7 +140,7 @@ private:
     void publish_offboard_control_mode();
     void publish_trajectory_setpoint(float t);
     void publish_vehicle_command(uint16_t command, float param1 = 0.0, float param2 = 0.0);
-    void vehicle_local_position_callback(const VehicleLocalPosition::SharedPtr msg);
+    void vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg);
     void vehicle_status_callback(const VehicleStatus::SharedPtr msg);
 
     float prevDist = 0.0;
@@ -169,15 +170,18 @@ void OffboardControl::vehicle_status_callback(const VehicleStatus::SharedPtr msg
     last_arming_state = msg->arming_state;
 }
 
-void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition::SharedPtr msg) {
+void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg) {
+    /*
     if(!msg->xy_valid || !msg->z_valid){
         std::cout << "Message invalid!" << std::endl;
         return;
     }
+    */
+    
 
-    float dx = msg->x + target_pos.x();
-    float dy = msg->y - target_pos.y();
-    float dz = msg->z + target_pos.z();
+    float dx = msg->position[0] + target_pos.x();
+    float dy = msg->position[1]  - target_pos.y();
+    float dz = msg->position[2]  + target_pos.z();
     float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
     //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
@@ -185,7 +189,7 @@ void OffboardControl::vehicle_local_position_callback(const VehicleLocalPosition
     //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
     //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
-    visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->x, msg->y, -msg->z}, "/map");
+    visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->position[0], msg->position[1], -msg->position[2]}, "/map");
     marker_drone_pub->publish(drone_marker);
 
     if(distance < tolerance){
@@ -260,14 +264,12 @@ void OffboardControl::publish_offboard_control_mode()
 
 void OffboardControl::publish_trajectory_setpoint(float t)
 {
-    if (currTraj == NULL) {
+    if (currTraj == nullptr) {
         std::cerr << "Current trajectory NULL!" << std::endl;
     }
 
     TrajectorySetpoint msg{};
     Eigen::Vector3f pos;
-    Eigen::Vector3f current_pos;
-    Eigen::Vector3f delta;
     Eigen::Vector3f vel = currTraj->getVelocity(t);
     //std::cout << "Velocity: " << -vel.x() << " " << vel.y() << " " << -vel.z() << std::endl;
 
@@ -277,16 +279,13 @@ void OffboardControl::publish_trajectory_setpoint(float t)
         case TAKEOFF:
             //std::cout << "In Takeoff: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = target_pos;
-            msg.yaw = atan2(pos.y(), pos.x());
+            msg.yaw = -atan2(pos.y(), pos.x());
             //msg.velocity = {-vel.x(),vel.y(),-vel.z()};
             break;
         case FOLLOW_TRAJECTORY:
             vel = currTraj->getVelocity(t);
             //std::cout << "In Follow Taj: " << vel.x() << " " << vel.y() << " " << vel.z() << std::endl;
             pos = currTraj->getPosition(t, msg.yaw);
-            //pos = current_pos;
-            // delta = target_pos - current_pos;
-            // msg.yaw = atan2(delta.y(), delta.x());
             break;
         case LOITER:
         case LAND:
