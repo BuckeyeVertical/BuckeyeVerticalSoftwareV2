@@ -50,7 +50,6 @@ public:
         prev_time = this->now();
 
         // Simple straight line trajectory
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
         waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
         waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
@@ -78,12 +77,16 @@ public:
                 start_time = this->now();
 
                 this->arm();
+
+                this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_NAV_TAKEOFF, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, takeoff_altitude);
             }
 
             double elapsed_time = (this->now() - start_time).seconds();
             currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
             publish_offboard_control_mode();
-            publish_trajectory_setpoint(elapsed_time);
+            if (drone_state != TAKEOFF) {
+                publish_trajectory_setpoint(elapsed_time);
+            }
 
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
@@ -98,8 +101,9 @@ public:
 
 private:
     // Parameters for trajectory smoothing
-    float max_velocity = 3.0;  // m/s
-    float time_to_max = 2.0; // LOOK HERE
+    float max_velocity = 5.0;  // m/s
+    float time_to_max = 1.0; // LOOK HERE
+    float takeoff_yaw = 0.0;
     State drone_state = TAKEOFF;
 
     float takeoff_altitude = 10.0;
@@ -139,7 +143,15 @@ private:
 
     void publish_offboard_control_mode();
     void publish_trajectory_setpoint(float t);
-    void publish_vehicle_command(uint16_t command, float param1 = 0.0, float param2 = 0.0);
+    void publish_vehicle_command(unsigned int command, 
+        float param1 = 0.0, 
+        float param2 = 0.0, 
+        float param3 = 0.0, 
+        float param4 = 0.0,
+        float param5 = 0.0, 
+        float param6 = 0.0,
+        float param7 = 0.0
+    );
     void vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg);
     void vehicle_status_callback(const VehicleStatus::SharedPtr msg);
 
@@ -182,7 +194,13 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
     float dx = msg->position[0] + target_pos.x();
     float dy = msg->position[1]  - target_pos.y();
     float dz = msg->position[2]  + target_pos.z();
-    float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
+    float distance = 0.0;
+
+    if (drone_state == TAKEOFF){
+        distance = dz;
+    } else {
+        distance = std::sqrt(dx*dx + dy*dy + dz*dz);
+    }
 
     //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
     //std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
@@ -199,8 +217,8 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
             case TAKEOFF:
                 // Create first segment using existing waypoints
                 segment_waypoints.clear();
+                segment_waypoints.push_back(Eigen::Vector3f(msg->position[0], msg->position[1], -msg->position[2]));
                 segment_waypoints.push_back(waypoints[current_waypoint]); // Current position
-                segment_waypoints.push_back(waypoints[current_waypoint + 1]); // Next waypoint
                 currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints);
                 target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                 current_waypoint++;
@@ -314,11 +332,16 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     marker_heading_pub->publish(heading_marker);
 }
 
-void OffboardControl::publish_vehicle_command(uint16_t command, float param1, float param2)
+void OffboardControl::publish_vehicle_command(unsigned int command, float param1, float param2, float param3, float param4, float param5, float param6, float param7)
 {
     VehicleCommand msg{};
     msg.param1 = param1;
     msg.param2 = param2;
+    msg.param3 = param3;
+    msg.param4 = param4;
+    msg.param5 = param5;
+    msg.param6 = param6;
+    msg.param7 = param7;
     msg.command = command;
     msg.target_system = 1;
     msg.target_component = 1;

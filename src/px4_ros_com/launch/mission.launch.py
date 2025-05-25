@@ -46,6 +46,19 @@ def generate_launch_description():
         arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
     )
+
+    # Image Stitching Node (PYTHON VERSION)
+    image_stitching_node = Node(
+        package='px4_ros_com',
+        executable='image_stitching_node.py',  # <<-- Python script name
+        output='screen'
+    )
+    
+    detection = Node(
+        package='px4_ros_com',
+        executable='detection.py',  # <<-- Python script name
+        output='screen'
+    )
     
     
     # Delayed start of traj_test
@@ -66,5 +79,9 @@ def generate_launch_description():
         traj_test_node,
         rviz_node,
         gz_bridge,
+        image_stitching_node,
+        detection
         # <-- Launch the Python image stitcher
     ])
+
+
