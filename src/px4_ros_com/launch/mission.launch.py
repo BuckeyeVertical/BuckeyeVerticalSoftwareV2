@@ -43,12 +43,21 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         output='screen',
-<<<<<<< HEAD
-        arguments=['/world/bv_mission/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image'],
-=======
         arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
->>>>>>> bca7630 (Couldn't get takeoff and land to work)
         shell=True
+    )
+
+    # Image Stitching Node (PYTHON VERSION)
+    image_stitching_node = Node(
+        package='px4_ros_com',
+        executable='image_stitching_node.py',  # <<-- Python script name
+        output='screen'
+    )
+    
+    detection = Node(
+        package='px4_ros_com',
+        executable='detection.py',  # <<-- Python script name
+        output='screen'
     )
     
     
@@ -70,5 +79,9 @@ def generate_launch_description():
         traj_test_node,
         rviz_node,
         gz_bridge,
+        image_stitching_node,
+        detection
         # <-- Launch the Python image stitcher
     ])
+
+

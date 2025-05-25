@@ -86,7 +86,7 @@ class ImageListenerNode(Node):
         # subscribe to camera topic
         self.create_subscription(
             Image,
-            '/camera',
+            '/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image',
             self.image_callback,
             10
         )
