@@ -68,17 +68,17 @@ public:
                 start_time = this->now();
             }
 
-            if (offboard_setpoint_counter_ == 10){
-                std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
-                // Change to Offboard mode after 10 setpoints
-                this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
+            // if (offboard_setpoint_counter_ == 10){
+            //     std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
+            //     // Change to Offboard mode after 10 setpoints
+            //     this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
 
-                rclcpp::sleep_for(1s);
+            //     rclcpp::sleep_for(1s);
 
-                start_time = this->now();
+            //     start_time = this->now();
 
-                this->arm();
-            }
+            //     this->arm();
+            // }
 
             double elapsed_time = (this->now() - start_time).seconds();
             currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
