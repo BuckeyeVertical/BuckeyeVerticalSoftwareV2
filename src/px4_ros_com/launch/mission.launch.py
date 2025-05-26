@@ -5,6 +5,15 @@ from launch.actions import ExecuteProcess, TimerAction
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
+    param_file_arg = DeclareLaunchArgument(
+        'params_file',
+        default_value=os.path.join(
+            get_package_share_directory('your_package_name'),
+            'params',
+            'trajectory_params.yaml'),
+        description='Full path to the ROS2 parameters file to use'
+    )
+        
     # Get the path to the RViz configuration file
     rviz_config_file = os.path.join(
         get_package_share_directory('px4_ros_com'),
@@ -76,11 +85,11 @@ def generate_launch_description():
 
     return LaunchDescription([
         # micro_ros_agent,  # Uncomment if you want to launch the Micro XRCE Agent automatically
-        traj_test_node,
+        mission_node,
         rviz_node,
-        gz_bridge,
-        image_stitching_node,
-        detection
+        # gz_bridge,
+        # image_stitching_node,
+        # detection
         # <-- Launch the Python image stitcher
     ])
 
