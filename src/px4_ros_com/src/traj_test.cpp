@@ -24,6 +24,13 @@ enum State {
     LAND
 };
 
+enum Arm_State {
+    ARMING,
+    ARM_TAKEOFF,
+    ARM_LOITER,
+    ARM_OFFBOARD
+};
+
 class OffboardControl : public rclcpp::Node
 {
 public:
@@ -44,14 +51,14 @@ public:
         vehicle_local_position_ = this->create_subscription<VehicleOdometry>("fmu/out/vehicle_odometry", qos,
                                                             std::bind(&OffboardControl::vehicle_local_position_callback, this, std::placeholders::_1));
 
-        vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
+        vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status_v1", qos,
                                                             std::bind(&OffboardControl::vehicle_status_callback, this, std::placeholders::_1));
 
         prev_time = this->now();
 
         // Simple straight line trajectory
-        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
+        waypoints.push_back(Eigen::Vector3f(5.0, 5.0, 10.0));    // Go up to 10m
+        waypoints.push_back(Eigen::Vector3f(15.0, 5.0, 10.0));   // Move forward 10m while maintaining altitude
         waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
@@ -67,27 +74,19 @@ public:
                 start_time = this->now();
             }
 
-            // if (offboard_setpoint_counter_ == 10){
-            //     std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
-            //     // Change to Offboard mode after 10 setpoints
-            //     this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
+            this->arm();
 
-            //     rclcpp::sleep_for(1s);
-
-            //     start_time = this->now();
-
-                this->arm();
-
-                this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_NAV_TAKEOFF, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, takeoff_altitude);
+            if (offboard_setpoint_counter_ == 10){
+                start_time = this->now();
             }
 
-            double elapsed_time = (this->now() - start_time).seconds();
-            currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
-            publish_offboard_control_mode();
-            if (drone_state != TAKEOFF) {
+            if (arm_state == ARM_OFFBOARD){
+                double elapsed_time = (this->now() - start_time).seconds();
+                currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
+                publish_offboard_control_mode();
                 publish_trajectory_setpoint(elapsed_time);
             }
-
+            
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
                 offboard_setpoint_counter_++;
@@ -106,12 +105,16 @@ private:
     float takeoff_yaw = 0.0;
     State drone_state = TAKEOFF;
 
+    Arm_State arm_state = Arm_State::ARMING;
+
     float takeoff_altitude = 10.0;
+
+    uint8_t nav_state = VehicleStatus::NAVIGATION_STATE_MAX;
 
     bool reset_time = true;
     rclcpp::Time start_time;
     bool armed = false;
-    std::size_t current_waypoint = 1;
+    std::size_t current_waypoint = 0;
     std::vector<Eigen::Vector3f> segment_waypoints;
 
     std::size_t current_segment = 0;
@@ -179,6 +182,8 @@ void OffboardControl::vehicle_status_callback(const VehicleStatus::SharedPtr msg
         RCLCPP_INFO(this->get_logger(), "Vehicle is in OFFBOARD mode");
     }
 
+    this->nav_state = msg->nav_state;
+
     last_arming_state = msg->arming_state;
 }
 
@@ -202,10 +207,10 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
         distance = std::sqrt(dx*dx + dy*dy + dz*dz);
     }
 
-    //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
-    //std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
-    //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
-    //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
+    // std::cout << "Current vehicle position - x: " << -msg->position[0] << " y: " << msg->position[1] << " z: " << -msg->position[2] << std::endl;
+    // std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
+    // std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
+    // std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
     visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->position[0], msg->position[1], -msg->position[2]}, "/map");
     marker_drone_pub->publish(drone_marker);
@@ -258,8 +263,34 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
 
 void OffboardControl::arm()
 {
-    publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
-    RCLCPP_INFO(this->get_logger(), "Arm command send");
+    switch(this->arm_state) {
+        case Arm_State::ARMING:
+            RCLCPP_INFO(this->get_logger(), "Arming: [%ld], Counter: [%ld]", nav_state, offboard_setpoint_counter_);
+            if (nav_state == VehicleStatus::ARM_DISARM_REASON_COMMAND_EXTERNAL && offboard_setpoint_counter_ >= 10) {
+                this->arm_state = Arm_State::ARM_TAKEOFF;
+            }
+            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
+            break;
+        case Arm_State::ARM_TAKEOFF:
+            RCLCPP_INFO(this->get_logger(), "Taking Off");
+            if (nav_state == VehicleStatus::NAVIGATION_STATE_AUTO_TAKEOFF){
+                this->arm_state = Arm_State::ARM_LOITER;
+            }
+            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_NAV_TAKEOFF, 1, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0);
+            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
+            break;
+        case Arm_State::ARM_LOITER:
+            RCLCPP_INFO(this->get_logger(), "Loitering");
+            if (nav_state == VehicleStatus::NAVIGATION_STATE_AUTO_LOITER) {
+                this->arm_state = Arm_State::ARM_OFFBOARD;
+            }
+            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
+            break;
+        case Arm_State::ARM_OFFBOARD:
+            RCLCPP_INFO(this->get_logger(), "Offboard");
+            this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
+            break;
+    }
 }
 
 void OffboardControl::disarm()

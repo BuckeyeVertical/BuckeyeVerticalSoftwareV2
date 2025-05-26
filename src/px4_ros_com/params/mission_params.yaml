@@ -1,0 +1,14 @@
+mission:
+  ros__parameters:
+    # motion‐profiling gains
+    max_velocity: 5.0
+    time_to_max: 1.0
+    takeoff_alt: 10.0
+
+    # mission waypoints in (lat, lon, alt)
+    mission_waypoints:
+      - { lat: 37.427500, lon: -122.169700, alt: 10.0 }
+      - { lat: 37.430000, lon: -122.166000, alt: 15.0 }
+      # … more entries …
+
+    # any other tuning knobs…
