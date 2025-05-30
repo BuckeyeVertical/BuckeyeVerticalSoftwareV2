@@ -28,6 +28,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(GeographicLib REQUIRED)
 
 #################
 # Setup targets #
@@ -44,9 +45,14 @@ target_include_directories(frame_transforms PUBLIC
 )
 
 # traj_test
-add_executable(traj_test src/traj_test.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
-ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
-install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
+# add_executable(traj_test src/traj_test.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
+# ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
+# install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
+
+# mission
+add_executable(mission src/mission.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
+ament_target_dependencies(mission rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3 GeographicLib)
+install(TARGETS mission DESTINATION lib/${PROJECT_NAME})
 
 # Build your test executable
 add_executable(test_trajectory test/test_trajectory.cpp src/trajectory.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
@@ -96,6 +102,8 @@ install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
 
 # Install tests
 install(DIRECTORY test DESTINATION share/${PROJECT_NAME}/)
+
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
 ############
 # Python Nodes

@@ -1,0 +1,12 @@
+bv_mission:
+  ros__parameters:
+    mission_waypoints: [
+      47.39792614, 8.54609739, 10.0,
+      47.39792614, 8.54623009, 10.0,
+      47.39801597, 8.54623009, 10.0,
+      47.39801597, 8.54609739, 10.0
+    ]
+    max_velocity: 5.0
+    time_to_max:   1.0
+    takeoff_alt:  10.0
+    waypoint_tolerance: 1.0 # meters

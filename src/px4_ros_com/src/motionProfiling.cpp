@@ -78,28 +78,11 @@ float MotionProfiling::getvScale(float t){
 
     vScale = vScale / vmax;
 
-    // std::cout << "VScale in timeScaledFunction: " << vScale << std::endl;
-
     return vScale;
 }
 
-// TODO: Add time as param
 Eigen::Vector3f MotionProfiling::getVelocity(float t){
-
-    //Eigen::Vector3f diff = (waypoints->at(1) - waypoints->at(0));
-    // std::cout << "Waypoint difference: " << diff.x() << diff.y() << diff.z() << std::endl;
-    // std::cout << "Line length: " << calculateLineLength() << std::endl;
-    //Eigen::Vector3f afterLineLegnth = (waypoints->at(1) - waypoints->at(0)) / 10;
-    // std::cout << "After division " << afterLineLegnth.x() << afterLineLegnth.y() << afterLineLegnth.z() << std::endl;
-    // std::cout << "vScale in getVelocity() " << vScale << std::endl;
-    // std::cout << "vmax " << vmax << std::endl;
-    //Eigen::Vector3f retVector = (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * vScale) * vmax;
-    // std::cout << "Final return difference: " << retVector.x() << retVector.y() << retVector.z() << std::endl;
-
-    
-
     return (((waypoints->at(1) - waypoints->at(0))/calculateLineLength()) * getvScale(t)) * vmax;
-
 }
 
 
@@ -195,6 +178,10 @@ Eigen::Vector3f MotionProfiling::getPosition(float t, float &heading) {
    
     // Get position
     return startPoint + u * (endPoint - startPoint);
+}
+
+rclcpp::Time MotionProfiling::getStartTime(){
+    return startTime;
 }
 
 const std::vector<Eigen::Vector3f> MotionProfiling::getWaypoints(){
