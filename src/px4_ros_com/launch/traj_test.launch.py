@@ -43,7 +43,7 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         output='screen',
-        arguments=['/camera@sensor_msgs/msg/Image@gz.msgs.Image'],
+        arguments=['/world/bv_mission/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image'],
         shell=True
     )
     
