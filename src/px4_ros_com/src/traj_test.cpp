@@ -24,13 +24,6 @@ enum State {
     LAND
 };
 
-enum Arm_State {
-    ARMING,
-    ARM_TAKEOFF,
-    ARM_LOITER,
-    ARM_OFFBOARD
-};
-
 class OffboardControl : public rclcpp::Node
 {
 public:
@@ -51,19 +44,20 @@ public:
         vehicle_local_position_ = this->create_subscription<VehicleOdometry>("fmu/out/vehicle_odometry", qos,
                                                             std::bind(&OffboardControl::vehicle_local_position_callback, this, std::placeholders::_1));
 
-        vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status_v1", qos,
+        vehicle_status_ = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
                                                             std::bind(&OffboardControl::vehicle_status_callback, this, std::placeholders::_1));
 
         prev_time = this->now();
 
         // Simple straight line trajectory
-        waypoints.push_back(Eigen::Vector3f(5.0, 5.0, 10.0));    // Go up to 10m
-        waypoints.push_back(Eigen::Vector3f(15.0, 5.0, 10.0));   // Move forward 10m while maintaining altitude
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));     // Start at ground
+        waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));    // Go up to 10m
+        waypoints.push_back(Eigen::Vector3f(15.0, 0.0, 10.0));   // Move forward 10m while maintaining altitude
         waypoints.push_back(Eigen::Vector3f(15.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 15.0, 10.0));
         waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 10.0));
 
-        currTraj = std::make_shared<MotionProfiling>(1, 1, &waypoints);
+        currTraj = std::make_shared<MotionProfiling>(1, 1, &waypoints, now());
 
         offboard_setpoint_counter_ = 0;
 
@@ -74,19 +68,23 @@ public:
                 start_time = this->now();
             }
 
-            this->arm();
-
             if (offboard_setpoint_counter_ == 10){
+                std::cout << "Attempting to switch to offboard mode and arm..." << std::endl;
+                // Change to Offboard mode after 10 setpoints
+                this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
+
+                rclcpp::sleep_for(1s);
+
                 start_time = this->now();
+
+                this->arm();
             }
 
-            if (arm_state == ARM_OFFBOARD){
-                double elapsed_time = (this->now() - start_time).seconds();
-                currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
-                publish_offboard_control_mode();
-                publish_trajectory_setpoint(elapsed_time);
-            }
-            
+            double elapsed_time = (this->now() - start_time).seconds();
+            currTraj->sendVisualizeMsg(marker_traj_pub, marker_wp_pub);
+            publish_offboard_control_mode();
+            publish_trajectory_setpoint(elapsed_time);
+
             // stop the counter after reaching 11
             if (offboard_setpoint_counter_ < 11) {
                 offboard_setpoint_counter_++;
@@ -100,21 +98,16 @@ public:
 
 private:
     // Parameters for trajectory smoothing
-    float max_velocity = 5.0;  // m/s
-    float time_to_max = 1.0; // LOOK HERE
-    float takeoff_yaw = 0.0;
+    float max_velocity = 3.0;  // m/s
+    float time_to_max = 2.0; // LOOK HERE
     State drone_state = TAKEOFF;
 
-    Arm_State arm_state = Arm_State::ARMING;
-
     float takeoff_altitude = 10.0;
-
-    uint8_t nav_state = VehicleStatus::NAVIGATION_STATE_MAX;
 
     bool reset_time = true;
     rclcpp::Time start_time;
     bool armed = false;
-    std::size_t current_waypoint = 0;
+    std::size_t current_waypoint = 1;
     std::vector<Eigen::Vector3f> segment_waypoints;
 
     std::size_t current_segment = 0;
@@ -146,15 +139,7 @@ private:
 
     void publish_offboard_control_mode();
     void publish_trajectory_setpoint(float t);
-    void publish_vehicle_command(unsigned int command, 
-        float param1 = 0.0, 
-        float param2 = 0.0, 
-        float param3 = 0.0, 
-        float param4 = 0.0,
-        float param5 = 0.0, 
-        float param6 = 0.0,
-        float param7 = 0.0
-    );
+    void publish_vehicle_command(uint16_t command, float param1 = 0.0, float param2 = 0.0);
     void vehicle_local_position_callback(const VehicleOdometry::SharedPtr msg);
     void vehicle_status_callback(const VehicleStatus::SharedPtr msg);
 
@@ -172,14 +157,15 @@ void OffboardControl::vehicle_status_callback(const VehicleStatus::SharedPtr msg
     if (msg->arming_state == VehicleStatus::ARMING_STATE_ARMED) {
         RCLCPP_INFO(this->get_logger(), "Vehicle is ARMED");
         armed = true;
+    } else if (msg->arming_state == VehicleStatus::ARMING_STATE_DISARMED) {
+        RCLCPP_INFO(this->get_logger(), "Vehicle is DISARMED");
+        armed = false;
     }
-    
+
     // You can also check nav_state
     if (msg->nav_state == VehicleStatus::NAVIGATION_STATE_OFFBOARD) {
         RCLCPP_INFO(this->get_logger(), "Vehicle is in OFFBOARD mode");
     }
-
-    this->nav_state = msg->nav_state;
 
     last_arming_state = msg->arming_state;
 }
@@ -196,18 +182,12 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
     float dx = msg->position[0] + target_pos.x();
     float dy = msg->position[1]  - target_pos.y();
     float dz = msg->position[2]  + target_pos.z();
-    float distance = 0.0;
+    float distance = std::sqrt(dx*dx + dy*dy + dz*dz);
 
-    if (drone_state == TAKEOFF){
-        distance = dz;
-    } else {
-        distance = std::sqrt(dx*dx + dy*dy + dz*dz);
-    }
-
-    // std::cout << "Current vehicle position - x: " << -msg->position[0] << " y: " << msg->position[1] << " z: " << -msg->position[2] << std::endl;
-    // std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
-    // std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
-    // std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
+    //std::cout << "Current vehicle position - x: " << -msg->x << " y: " << msg->y << " z: " << -msg->z << std::endl;
+    //std::cout << "Target position - x: " << target_pos.x() << " y: " << target_pos.y() << " z: " << target_pos.z() << std::endl;
+    //std::cout << "Distance to target: " << distance << " (tolerance: " << tolerance << ")" << std::endl;
+    //std::cout << "Current state: " << static_cast<int>(drone_state) << std::endl;
 
     visualization_msgs::msg::Marker drone_marker = rviz_utils::createSquareMarker(Eigen::Vector3f{-msg->position[0], msg->position[1], -msg->position[2]}, "/map");
     marker_drone_pub->publish(drone_marker);
@@ -219,9 +199,9 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
             case TAKEOFF:
                 // Create first segment using existing waypoints
                 segment_waypoints.clear();
-                segment_waypoints.push_back(Eigen::Vector3f(msg->position[0], msg->position[1], -msg->position[2]));
                 segment_waypoints.push_back(waypoints[current_waypoint]); // Current position
-                currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints);
+                segment_waypoints.push_back(waypoints[current_waypoint + 1]); // Next waypoint
+                currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints, now());
                 target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                 current_waypoint++;
                 drone_state = FOLLOW_TRAJECTORY;
@@ -234,14 +214,14 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
                     segment_waypoints.clear();
                     segment_waypoints.push_back(waypoints[current_waypoint]);
                     segment_waypoints.push_back(waypoints[current_waypoint + 1]);
-                    currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints);
+                    currTraj = std::make_shared<MotionProfiling>(max_velocity, time_to_max, &segment_waypoints, now());
                     target_pos = waypoints[current_waypoint + 1];  // Add this line to update target
                     current_waypoint++;
                 } else {
                     segment_waypoints.clear();
                     segment_waypoints.push_back(waypoints[current_waypoint + 1]);
                     segment_waypoints.push_back(Eigen::Vector3f(0.0, 0.0, 0.0));
-                    currTraj = std::make_shared<MotionProfiling>(0.5, 0.5, &segment_waypoints);
+                    currTraj = std::make_shared<MotionProfiling>(0.5, 0.5, &segment_waypoints, now());
                     target_pos = Eigen::Vector3f(0.0, 0.0, 0.0);
                     drone_state = LAND;
                 }
@@ -260,34 +240,8 @@ void OffboardControl::vehicle_local_position_callback(const VehicleOdometry::Sha
 
 void OffboardControl::arm()
 {
-    switch(this->arm_state) {
-        case Arm_State::ARMING:
-            RCLCPP_INFO(this->get_logger(), "Arming: [%ld], Counter: [%ld]", nav_state, offboard_setpoint_counter_);
-            if (nav_state == VehicleStatus::ARM_DISARM_REASON_COMMAND_EXTERNAL && offboard_setpoint_counter_ >= 10) {
-                this->arm_state = Arm_State::ARM_TAKEOFF;
-            }
-            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
-            break;
-        case Arm_State::ARM_TAKEOFF:
-            RCLCPP_INFO(this->get_logger(), "Taking Off");
-            if (nav_state == VehicleStatus::NAVIGATION_STATE_AUTO_TAKEOFF){
-                this->arm_state = Arm_State::ARM_LOITER;
-            }
-            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_NAV_TAKEOFF, 1, 0.0, 0.0, 0.0, 0.0, 0.0, 10.0);
-            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
-            break;
-        case Arm_State::ARM_LOITER:
-            RCLCPP_INFO(this->get_logger(), "Loitering");
-            if (nav_state == VehicleStatus::NAVIGATION_STATE_AUTO_LOITER) {
-                this->arm_state = Arm_State::ARM_OFFBOARD;
-            }
-            publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
-            break;
-        case Arm_State::ARM_OFFBOARD:
-            RCLCPP_INFO(this->get_logger(), "Offboard");
-            this->publish_vehicle_command(VehicleCommand::VEHICLE_CMD_DO_SET_MODE, 1, 6);
-            break;
-    }
+    publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
+    RCLCPP_INFO(this->get_logger(), "Arm command send");
 }
 
 void OffboardControl::disarm()
@@ -360,16 +314,11 @@ void OffboardControl::publish_trajectory_setpoint(float t)
     marker_heading_pub->publish(heading_marker);
 }
 
-void OffboardControl::publish_vehicle_command(unsigned int command, float param1, float param2, float param3, float param4, float param5, float param6, float param7)
+void OffboardControl::publish_vehicle_command(uint16_t command, float param1, float param2)
 {
     VehicleCommand msg{};
     msg.param1 = param1;
     msg.param2 = param2;
-    msg.param3 = param3;
-    msg.param4 = param4;
-    msg.param5 = param5;
-    msg.param6 = param6;
-    msg.param7 = param7;
     msg.command = command;
     msg.target_system = 1;
     msg.target_component = 1;

@@ -45,9 +45,9 @@ target_include_directories(frame_transforms PUBLIC
 )
 
 # traj_test
-# add_executable(traj_test src/traj_test.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
-# ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
-# install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
+add_executable(traj_test src/traj_test.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)
+ament_target_dependencies(traj_test rclcpp px4_msgs rclcpp geometry_msgs visualization_msgs Eigen3)
+install(TARGETS traj_test DESTINATION lib/${PROJECT_NAME})
 
 # mission
 add_executable(mission src/mission.cpp src/motionProfiling.cpp src/rviz_utils.cpp src/lib/frame_transforms.cpp)

@@ -43,11 +43,7 @@ def generate_launch_description():
         package="ros_gz_bridge",
         executable="parameter_bridge",
         output='screen',
-<<<<<<< HEAD
         arguments=['/world/bv_mission/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image@gz.msgs.Image'],
-=======
-        arguments=['/world/default/model/x500_mono_cam_down_0/link/camera_link/sensor/imager/image@sensor_msgs/msg/Image@gz.msgs.Image'],
->>>>>>> bca7630 (Couldn't get takeoff and land to work)
         shell=True
     )
     
