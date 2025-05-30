@@ -5,13 +5,11 @@ from launch.actions import ExecuteProcess, TimerAction
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
-    param_file_arg = DeclareLaunchArgument(
-        'params_file',
-        default_value=os.path.join(
-            get_package_share_directory('your_package_name'),
-            'params',
-            'trajectory_params.yaml'),
-        description='Full path to the ROS2 parameters file to use'
+    pkg = 'px4_ros_com'
+    mission_cfg = os.path.join(
+        get_package_share_directory(pkg),
+        'config',
+        'offboard_params.yaml'
     )
         
     # Get the path to the RViz configuration file
@@ -21,19 +19,12 @@ def generate_launch_description():
         'test_trajectory.rviz'
     )
 
-    print(f"Loading config file from: {rviz_config_file}")
-
-    # MicroXRCEAgent (Optional)
-    micro_ros_agent = ExecuteProcess(
-        cmd=['xterm', '-e', 'MicroXRCEAgent', 'udp4', '-p', '8888', '-v'],
-        shell=True,
-        output='screen'
-    )
-
     # Trajectory test node (traj_test_copy)
-    traj_test_node = Node(
+    mission_node = Node(
         package='px4_ros_com',
-        executable='traj_test',
+        name='bv_mission',
+        executable='mission',
+        parameters=[mission_cfg],
         output='screen',
         shell=True,
     )
@@ -56,41 +47,24 @@ def generate_launch_description():
         shell=True
     )
 
-    # Image Stitching Node (PYTHON VERSION)
     image_stitching_node = Node(
         package='px4_ros_com',
-        executable='image_stitching_node.py',  # <<-- Python script name
+        executable='image_stitching_node.py',
         output='screen'
     )
     
     detection = Node(
         package='px4_ros_com',
-        executable='detection.py',  # <<-- Python script name
+        executable='detection.py',
         output='screen'
-    )
-    
-    
-    # Delayed start of traj_test
-    delay_timer = TimerAction(
-        period=4.0,
-        actions=[
-            Node(
-                package='px4_ros_com',
-                executable='traj_test',
-                output='screen',
-                shell=True,
-            ),
-        ]
     )
 
     return LaunchDescription([
-        # micro_ros_agent,  # Uncomment if you want to launch the Micro XRCE Agent automatically
         mission_node,
         rviz_node,
         # gz_bridge,
         # image_stitching_node,
         # detection
-        # <-- Launch the Python image stitcher
     ])
 
 

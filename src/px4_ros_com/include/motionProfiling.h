@@ -14,6 +14,7 @@ private:
     const std::vector<Eigen::Vector3f> *waypoints;
 
     float vmax, timeToMaxV = 0;
+    rclcpp::Time startTime;
 
     float getTimeScaledParameter(float t);
     float calculateLineLength() const;
@@ -23,7 +24,7 @@ private:
 
 
 public:
-    MotionProfiling(double vmax, double timeToMaxV, const std::vector<Eigen::Vector3f> *waypoints){
+    MotionProfiling(double vmax, double timeToMaxV, const std::vector<Eigen::Vector3f> *waypoints, rclcpp::Time startTime){
         this->waypoints = waypoints;
         this->vmax = vmax;
         this->timeToMaxV = timeToMaxV;
@@ -31,12 +32,15 @@ public:
         this->totalTime = 0.0;
 
         lineLength = generateTrajectory();
+        this->startTime = startTime;
     }
 
     Eigen::Vector3f getPosition(float t, float &heading);
     Eigen::Vector3f getPosition(float t);
 
     Eigen::Vector3f getVelocity(float t);
+
+    rclcpp::Time getStartTime();
 
     const std::vector<Eigen::Vector3f> getWaypoints();
     float getVMax();

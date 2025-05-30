@@ -172,11 +172,8 @@ void OffboardControl::vehicle_status_callback(const VehicleStatus::SharedPtr msg
     if (msg->arming_state == VehicleStatus::ARMING_STATE_ARMED) {
         RCLCPP_INFO(this->get_logger(), "Vehicle is ARMED");
         armed = true;
-    } else if (msg->arming_state == VehicleStatus::ARMING_STATE_DISARMED) {
-        RCLCPP_INFO(this->get_logger(), "Vehicle is DISARMED");
-        armed = false;
     }
-
+    
     // You can also check nav_state
     if (msg->nav_state == VehicleStatus::NAVIGATION_STATE_OFFBOARD) {
         RCLCPP_INFO(this->get_logger(), "Vehicle is in OFFBOARD mode");
