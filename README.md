@@ -1,5 +1,29 @@
 # Buckeye Vertical Software 2024-25
 
+## Setting up the repo:
+Step 1: Clone the repo
+```
+git clone https://github.com/BuckeyeVertical/BuckeyeVerticalSoftwareV2.git
+```
+or if you prefer ssh:
+```
+git@github.com:BuckeyeVertical/BuckeyeVerticalSoftwareV2.git
+```
+
+Step 2: Switch the version
+On the Jetson/Raspi use SNAPSHOT-1.0.0.
+For development use DEV-1.0.0
+```
+cd BuckeyeVerticalSoftwareV2
+git checkout SNAPSHOT-1.0.0
+```
+
+Step 3: **On the Jetson/Raspi only!** Set up COLCON_IGNORE
+```
+cd src/ros_gz_bridge
+touch COLCON_IGNORE
+```
+
 ## Building the docker:
 Step 1:
 ```
