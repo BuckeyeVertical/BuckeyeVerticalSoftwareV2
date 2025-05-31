@@ -91,7 +91,6 @@ void Mission::vehicle_local_position_callback(const VehicleOdometry::SharedPtr m
     float z = msg->position[2];
 
     if (!takeoff_offset_set) {
-        std::cout << "Here" << std::endl;
         takeoff_offset = Vector3f(x, y, z);
         segment_waypoints.push_back(Eigen::Vector3f(takeoff_offset.x(), takeoff_offset.y(), takeoff_alt));
         segment_waypoints.push_back(local_wps[current_waypoint]);
