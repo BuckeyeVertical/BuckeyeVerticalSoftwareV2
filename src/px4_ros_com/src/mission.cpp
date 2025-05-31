@@ -79,7 +79,7 @@ void Mission::setup_subscribers() {
     sub_global = this->create_subscription<VehicleGlobalPosition>("fmu/out/vehicle_global_position", qos,
                                                             std::bind(&Mission::vehicle_global_position_callback, this, std::placeholders::_1));
 
-    sub_status = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status_v1", qos,
+    sub_status = this->create_subscription<VehicleStatus>("fmu/out/vehicle_status", qos,
                                                             std::bind(&Mission::vehicle_status_callback, this, std::placeholders::_1));
 }
 

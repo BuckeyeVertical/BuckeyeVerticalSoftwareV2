@@ -35,6 +35,9 @@ Shankar notes:
 How to get it to work every time:
 
 
+If it isn't building
+export GZ_VERSION=harmonic
+
 terminal 1:
 
 make px4_sitl gz_x500
@@ -52,5 +55,6 @@ colcon build
 source install/local_setup.bash
 ros2 launch px4_ros_com traj_test.launch.py
 
+ros2 launch px4_ros_com mission.launch.py
 
 if you just want to just run it again, just run the last one
