@@ -12,6 +12,10 @@ make px4_sitl gz_x500_mono_cam_down
 PX4_GZ_SIM_RENDER_ENGINE=ogre make px4_sitl gz_x500
 HEADLESS=1 make px4_sitl gz_x500
 
+Debugging mission:
+gdb ex run --args install/px4_ros_com/lib/px4_ros_com/mission
+run
+
 starting agent:
 MicroXRCEAgent udp4 -p 8888
 

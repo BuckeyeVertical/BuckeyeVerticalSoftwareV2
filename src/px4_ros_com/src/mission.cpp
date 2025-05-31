@@ -91,9 +91,11 @@ void Mission::vehicle_local_position_callback(const VehicleOdometry::SharedPtr m
     float z = msg->position[2];
 
     if (!takeoff_offset_set) {
+        std::cout << "Here" << std::endl;
         takeoff_offset = Vector3f(x, y, z);
-        segment_waypoints.push_back(Eigen::Vector3f(takeoff_offset.z(), takeoff_offset.y(), takeoff_alt));
+        segment_waypoints.push_back(Eigen::Vector3f(takeoff_offset.x(), takeoff_offset.y(), takeoff_alt));
         segment_waypoints.push_back(local_wps[current_waypoint]);
+        target_pos = local_wps[current_waypoint];
         takeoff_offset_set = true;
     }
 
@@ -252,8 +254,11 @@ void Mission::main_loop() {
             }
             
             publish_offboard_control_mode();
-            publish_trajectory_setpoint(t);
 
+            if (curr_traj != NULL && segment_waypoints.size() >= 2) {
+                publish_trajectory_setpoint(t);
+                curr_traj->sendVisualizeMsg(pub_traj_marker, pub_wp_marker);
+            }
             
             break;
         }
@@ -263,8 +268,6 @@ void Mission::main_loop() {
             break;
         }
     }
-
-    
 }
 
 void Mission::publish_offboard_control_mode() {
@@ -282,6 +285,9 @@ void Mission::publish_trajectory_setpoint(double t) {
     msg.velocity = {-vel.x(), vel.y(), -vel.z()};
     msg.timestamp = now().nanoseconds()/1000;
     pub_setpoint->publish(msg);
+
+    visualization_msgs::msg::Marker heading_marker = rviz_utils::createArrowMarker(Eigen::Vector3f{pos.x(), pos.y(), pos.z()}, msg.yaw, "/map");
+    pub_heading_marker->publish(heading_marker);
 }
 
 void Mission::publish_vehicle_command(unsigned int command, float param1, float param2, float param3, float param4, float param5, float param6, float param7)
