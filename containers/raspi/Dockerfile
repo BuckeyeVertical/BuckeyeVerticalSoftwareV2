@@ -57,7 +57,7 @@ COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r /requirements.txt
 
 # Set working directory for the container
-WORKDIR /ros2_ws
+WORKDIR /bv_ws
 
 # Copy the entrypoint script from host to container
 COPY entrypoint.sh /entrypoint.sh
