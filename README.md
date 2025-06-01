@@ -7,7 +7,7 @@ git clone https://github.com/BuckeyeVertical/BuckeyeVerticalSoftwareV2.git
 ```
 or if you prefer ssh:
 ```
-git@github.com:BuckeyeVertical/BuckeyeVerticalSoftwareV2.git
+git clone git@github.com:BuckeyeVertical/BuckeyeVerticalSoftwareV2.git
 ```
 
 Step 2: Switch the version
