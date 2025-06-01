@@ -11,6 +11,8 @@ docker run -it \
     --name "$CONTAINER_NAME" \
     --network host \
     --privileged \
+    --device /dev/video0:/dev/video0 \
+    --device /dev/video1:/dev/video1 \
     -v "$HOST_DIR":"$CONTAINER_SRC_DIR" \
     "$IMAGE_NAME" \
     bash
