@@ -13,7 +13,9 @@ docker run -it \
     --privileged \
     --device /dev/video0:/dev/video0 \
     --device /dev/video1:/dev/video1 \
+    -v /tmp/.X11-unix/:/tmp/.X11-unix \
     --env DISPLAY="$DISPLAY" \
     -v "$HOST_DIR":"$CONTAINER_SRC_DIR" \
+    --runtime=nvidia
     "$IMAGE_NAME" \
     bash

@@ -1,4 +1,4 @@
-FROM arm64v8/ros:humble-ros-base-jammy
+FROM dustynv/ros:humble-ros-base-l4t-r36.3.0
 
 ENV CXXFLAGS="-std=c++14"
 
