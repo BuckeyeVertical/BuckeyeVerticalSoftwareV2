@@ -108,7 +108,6 @@ void Mission::vehicle_local_position_callback(const VehicleOdometry::SharedPtr m
 
     if(distance < tolerance){
         std::cout << "Reached position setpoint with l2 error " << distance << std::endl;
-        rclcpp::sleep_for(1s);
 
         segment_waypoints.clear();
         segment_waypoints.push_back(local_wps[current_waypoint]);
