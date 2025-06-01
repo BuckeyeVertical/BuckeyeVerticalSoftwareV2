@@ -51,7 +51,7 @@ RUN git clone -b v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git && 
 
 # Install eigen
 RUN apt update && apt install -y libeigen3-dev \
-    apt-get install ros-<ros2-distro>-usb-cam
+    apt-get install ros-humble-usb-cam
 
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r /requirements.txt
