@@ -58,7 +58,7 @@ To run the docker in bash mode (don't run anything automatically):
 
 To shell into already running docker:
 ```
-docker exec -it dreamer_container /bin/bash
+docker exec -it bv_container /bin/bash
 ```
 
 To check pixhawk <-> raspi connection run this (inside container):
