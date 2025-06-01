@@ -2,6 +2,39 @@ FROM arm64v8/ros:humble-ros-base-jammy
 
 ENV CXXFLAGS="-std=c++14"
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 2) Remove the old ros2.list (so that 'apt-get update' won't break right away)
+# ─────────────────────────────────────────────────────────────────────────────
+RUN rm -f /etc/apt/sources.list.d/ros2.list
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3) Install gnupg, curl, and the ros-archive-keyring package
+#    The ros-archive-keyring will put the current GPG key in /usr/share/keyrings
+# ─────────────────────────────────────────────────────────────────────────────
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+       gnupg2 \
+       curl \
+       lsb-release \
+       software-properties-common && \
+    rm -rf /var/lib/apt/lists/*
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4) Fetch & install the ros-archive-keyring directly from the ROS repository
+#    (this .deb is maintained by ros-infrastructure and always updated)
+# ─────────────────────────────────────────────────────────────────────────────
+RUN curl -sSL \
+     "https://raw.githubusercontent.com/ros/rosdistro/master/ros.key" \
+     | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5) Re-create /etc/apt/sources.list.d/ros2.list, pointing to the correct keyring
+# ─────────────────────────────────────────────────────────────────────────────
+RUN echo "deb [arch=arm64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
+    http://packages.ros.org/ros2/ubuntu \
+    $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/ros2.list
+
 # Install dependencies and Python packages
 RUN apt-get update && apt-get install -y \
     python3-pip \
