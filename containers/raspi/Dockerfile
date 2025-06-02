@@ -3,25 +3,25 @@ FROM dustynv/ros:humble-ros-base-l4t-r36.3.0
 ENV CXXFLAGS="-std=c++14"
 
 # 1) Remove any existing ros2-latest.list so apt-get won’t hit an expired key
-RUN rm -f /etc/apt/sources.list.d/ros2-latest.list
+# RUN rm -f /etc/apt/sources.list.d/ros2-latest.list
 
-# 2) Install gnupg2, curl, lsb-release, software-properties-common
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-      gnupg2 \
-      curl \
-      lsb-release \
-      software-properties-common \
-    && rm -rf /var/lib/apt/lists/*
+# # 2) Install gnupg2, curl, lsb-release, software-properties-common
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#       gnupg2 \
+#       curl \
+#       lsb-release \
+#       software-properties-common \
+#     && rm -rf /var/lib/apt/lists/*
 
-# 3) Download the up-to-date ROS 2 GPG key into /usr/share/keyrings
-RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
-    | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
+# # 3) Download the up-to-date ROS 2 GPG key into /usr/share/keyrings
+# RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+#     | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
 
-# 4) Re-create ros2-latest.list with a signed-by clause
-RUN echo "deb [arch=arm64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
-    http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
-    > /etc/apt/sources.list.d/ros2-latest.list
+# # 4) Re-create ros2-latest.list with a signed-by clause
+# RUN echo "deb [arch=arm64 signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
+#     http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
+#     > /etc/apt/sources.list.d/ros2-latest.list
 
 # Install dependencies and Python packages
 RUN apt-get update && apt-get install -y \
