@@ -17,7 +17,7 @@ RUN apt-get update && \
 # 3) Fetch and dearmor the ROS 2 GPG key
 RUN mkdir -p /usr/share/keyrings && \
     curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
-      | gpg --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
+      | gpg --batch --dearmor -o /usr/share/keyrings/ros-archive-keyring.gpg
 
 # 4) Add the ROS 2 repository, signed by that key
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
