@@ -54,6 +54,9 @@ RUN git clone -b v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git && 
 RUN apt update && apt install -y libeigen3-dev && \
     apt-get install -y ros-humble-rviz2
 
+COPY requirements.txt /requirements.txt
+RUN pip install --upgrade pip && pip install -r /requirements.txt
+
 RUN apt-get update && \
     apt-get install gstreamer1.0-tools gstreamer1.0-alsa \
      gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
@@ -63,9 +66,6 @@ RUN apt-get update && \
      libgstreamer-plugins-base1.0-dev \
      libgstreamer-plugins-good1.0-dev \
      libgstreamer-plugins-bad1.0-dev
-
-COPY requirements.txt /requirements.txt
-RUN pip install --upgrade pip && pip install -r /requirements.txt
 
 # Set working directory for the container
 WORKDIR /bv_ws
