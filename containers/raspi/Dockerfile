@@ -57,8 +57,13 @@ RUN apt update && apt install -y libeigen3-dev && \
 COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip && pip install -r /requirements.txt
 
-# Install all GStreamer runtimes + dev packages in one go
+# ────────────────────────────────────────────────────────────────────────────────
+# Install all GStreamer runtimes + dev packages in one go (ensure universe enabled)
+# ────────────────────────────────────────────────────────────────────────────────
 RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    add-apt-repository -y universe && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       gstreamer1.0-tools \
       gstreamer1.0-alsa \
@@ -71,8 +76,9 @@ RUN apt-get update && \
       libgstreamer-plugins-base1.0-dev \
       libgstreamer-plugins-good1.0-dev \
       libgstreamer-plugins-bad1.0-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# ────────────────────────────────────────────────────────────────────────────────
+
 # Set working directory for the container
 WORKDIR /bv_ws
 
