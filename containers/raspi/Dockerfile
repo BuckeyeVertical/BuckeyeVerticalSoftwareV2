@@ -1,4 +1,4 @@
-FROM dustynv/ros:humble-ros-base-l4t-r36.3.0
+FROM dustynv/ros:humble-pytorch-l4t-r35.3.1
 
 ENV CXXFLAGS="-std=c++14"
 
