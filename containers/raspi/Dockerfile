@@ -48,19 +48,6 @@ RUN python3 -m pip install --upgrade pip
 # Install Python dependencies
 RUN pip install --no-cache-dir -U empy==3.3.4 pyros-genmsg setuptools==65.5.1
 
-# Clone and build Micro-XRCE-DDS-Agent
-WORKDIR /tmp
-RUN git clone -b v2.4.3 https://github.com/eProsima/Micro-XRCE-DDS-Agent.git && \
-    cd Micro-XRCE-DDS-Agent && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make && \
-    make install && \
-    ldconfig /usr/local/lib/ && \
-    cd / && \
-    rm -rf /tmp/Micro-XRCE-DDS-Agent
-
 # Install eigen
 RUN apt update && apt install -y libeigen3-dev
 
